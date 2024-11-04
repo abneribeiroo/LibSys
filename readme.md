@@ -2,7 +2,7 @@
 
 incluindo instruções sobre como instalar o `make` no Windows.
 
-```markdown
+
 # Sistema de Gestão da Biblioteca
 
 Este projeto é um sistema de gestão de biblioteca, escrito em C++. O `Makefile` fornecido facilita a compilação e execução do projeto.
