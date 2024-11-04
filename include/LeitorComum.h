@@ -1,7 +1,7 @@
 #ifndef LEITORCOMUM_H
 #define LEITORCOMUM_H
 
-#include <Pessoa.h>
+#include "Pessoa.h"
 
 
 class LeitorComum : public Pessoa

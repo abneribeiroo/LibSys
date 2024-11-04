@@ -1,4 +1,4 @@
-#include "include/Revista.h"
+#include "../include/Revista.h"
 
 Revista::Revista()
 {

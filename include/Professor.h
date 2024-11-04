@@ -1,7 +1,7 @@
 #ifndef PROFESSOR_H
 #define PROFESSOR_H
 
-#include <Pessoa.h>
+#include "Pessoa.h"
 
 
 class Professor : public Pessoa

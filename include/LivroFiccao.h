@@ -1,7 +1,7 @@
 #ifndef LIVROFICCAO_H
 #define LIVROFICCAO_H
 
-#include <Geral.h>
+#include "Geral.h"
 
 
 class LivroFiccao : public Geral

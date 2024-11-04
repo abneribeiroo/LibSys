@@ -1,4 +1,4 @@
-#include "include/LeitorComum.h"
+#include "../include/LeitorComum.h"
 
 LeitorComum::LeitorComum()
 {

@@ -1,7 +1,7 @@
 #ifndef LIVROCIENTIFICO_H
 #define LIVROCIENTIFICO_H
 
-#include <Geral.h>
+#include "Geral.h"
 
 
 class LivroCientifico : public Geral

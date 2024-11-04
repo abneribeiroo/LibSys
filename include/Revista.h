@@ -1,7 +1,7 @@
 #ifndef REVISTA_H
 #define REVISTA_H
 
-#include <Geral.h>
+#include "Geral.h"
 
 
 class Revista : public Geral

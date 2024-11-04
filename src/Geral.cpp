@@ -1,4 +1,4 @@
-#include "include/Geral.h"
+#include "../include/Geral.h"
 
 Geral::Geral()
 {

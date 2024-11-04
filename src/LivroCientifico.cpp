@@ -1,4 +1,4 @@
-#include "include/LivroCientifico.h"
+#include "../include/LivroCientifico.h"
 
 LivroCientifico::LivroCientifico()
 {
