@@ -2,10 +2,13 @@
 #define UTEIS_H
 
 
+
+
 class Uteis
 {
     public:
         Uteis();
+        void clearScreen();
         virtual ~Uteis();
 
     protected:
