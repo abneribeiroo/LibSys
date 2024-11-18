@@ -52,8 +52,12 @@ bool Biblioteca::Add_Livros(Geral* L)
         cout << "Erro: Tentativa de adicionar um livro nulo!" << endl;
         return false;
     }
+<<<<<<< HEAD
     string categoria = L->getCategoria();
     Coleccao_LIVROS[categoria].push_back(L);
+=======
+    //Coleccao_LIVROS[L->] = L;
+>>>>>>> 04dea2d42faffd99dcc837cb1149fa26539b7bb4
     return true;
 }
 
