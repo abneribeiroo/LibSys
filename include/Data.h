@@ -12,7 +12,7 @@ protected:
     int dia;
 public:
     Data();
-    Data(int ano, int mes, int dia) : titulo(titulo), autor(autor), anoPublicacao(anoPublicacao) {}
+    Data(int ano, int mes, int dia) : ano(ano), mes(mes), dia(dia) {}
     virtual void mostrarInfo() const
     {
         cout << "Ano: " << ano << endl;

@@ -55,6 +55,6 @@ bool Biblioteca::Add_Livros(Geral *L)
     {
         return false;
     }
-    Coleccao_LIVROS[L->] = L;
+    //Coleccao_LIVROS[L->] = L;
     return true;
 }
