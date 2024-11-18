@@ -3,22 +3,27 @@
 
 #include "Geral.h"
 
-
 class LivroCientifico : public Geral
 {
     string areaPesquisa;
-    public:
-        LivroCientifico();
-        LivroCientifico(string titulo, string autor, int anoPublicacao, string areaPesquisa) : Geral(titulo, autor, anoPublicacao), areaPesquisa(areaPesquisa) {};
-        void mostrarInfo() const {
-            Geral::mostrarInfo();
-            cout << "Area de Pesquisa: " << areaPesquisa << endl;
-        }
-        virtual ~LivroCientifico();
 
-    protected:
+public:
+    LivroCientifico();
+    LivroCientifico(string titulo, string autor, int anoPublicacao, string areaPesquisa) : Geral(titulo, autor, anoPublicacao), areaPesquisa(areaPesquisa) {};
+    void mostrarInfo() const
+    {
+        Geral::mostrarInfo();
+        cout << "Area de Pesquisa: " << areaPesquisa << endl;
+    }
+    string getCategoria() const override
+    {
+        return "LivroCientifico";
+    }
+    
+    virtual ~LivroCientifico();
 
-    private:
+protected:
+private:
 };
 
 #endif // LIVROCIENTIFICO_H

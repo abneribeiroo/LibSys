@@ -11,7 +11,8 @@ using namespace std;
 
 class Biblioteca
 {
-    map<string, Geral*> Coleccao_LIVROS;
+
+    map<string, list<Geral*>> Coleccao_LIVROS;
    // list, vector, map Coleccao_LIVROS;
    // list, vector, map Coleccao_REQ;
     public:

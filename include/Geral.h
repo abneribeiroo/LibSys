@@ -22,6 +22,7 @@ public:
     }
 
     virtual ~Geral();
+    virtual string getCategoria() const = 0;
     // virtual string QuemEs() = 0;
     // virtual void Show();
 };
