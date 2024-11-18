@@ -1,7 +1,6 @@
 #include "../include/Revista.h"
 
-Revista::Revista()
-{
+Revista::Revista() : Geral() {
     //ctor
 }
 

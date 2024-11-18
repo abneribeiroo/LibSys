@@ -7,6 +7,7 @@
 class Professor : public Pessoa
 {
     public:
+        Professor();
         Professor(string nome, int idade) : Pessoa(nome, idade) {};
 
         void mostrarInfo() const {

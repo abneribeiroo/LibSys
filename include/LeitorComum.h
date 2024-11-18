@@ -7,6 +7,7 @@
 class LeitorComum : public Pessoa
 {
     public:
+        LeitorComum();
         LeitorComum(string nome, int idade ) : Pessoa(nome, idade) {};
 
         void mostrarInfo() const {

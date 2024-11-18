@@ -10,6 +10,7 @@ class Pessoa
     string nome;
     int idade;
     public:
+        Pessoa();
         Pessoa(string nome, int idade) : nome(nome), idade(idade) {};
 
         virtual void mostrarInfo() const {

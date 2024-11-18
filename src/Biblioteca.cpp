@@ -47,3 +47,14 @@ bool Biblioteca::Add_Leitor(Pessoa *P)
     cout << "Um dia faco este metodo <" << __FUNCTION__ << ">" << endl;
     return true;
 }
+
+
+bool Biblioteca::Add_Livros(Geral *L)
+{
+    if (L == nullptr)
+    {
+        return false;
+    }
+    Coleccao_LIVROS[L->] = L;
+    return true;
+}

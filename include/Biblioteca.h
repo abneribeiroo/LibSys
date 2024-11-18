@@ -7,9 +7,11 @@ using namespace std;
 #include <map>
 #include "Pessoa.h"
 #include "Geral.h"
+using namespace std;
 
 class Biblioteca
 {
+    map<string, Geral*> Coleccao_LIVROS;
    // list, vector, map Coleccao_LIVROS;
    // list, vector, map Coleccao_REQ;
     public:
@@ -23,6 +25,7 @@ class Biblioteca
         void Listagem_Livros();
         bool Add_Leitores();
         bool Add_Leitor(Pessoa *P);
+        bool Add_Livros(Geral *L);
 
 };
 

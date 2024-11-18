@@ -8,6 +8,7 @@ class Revista : public Geral
 {
     int numeroEdicao;
     public:
+        Revista();
         Revista( string titulo, string autor, int anoPublicacao, int numeroEdicao ) : Geral(titulo, autor, anoPublicacao), numeroEdicao(numeroEdicao) {};
         void mostrarInfo() const override {
             Geral::mostrarInfo();

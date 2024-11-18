@@ -8,6 +8,7 @@ class LivroFiccao : public Geral
 {
     string genero;
     public:
+        LivroFiccao();
         LivroFiccao(string titulo, string autor, int anoPublicacao, string genero) : Geral(titulo, autor, anoPublicacao), genero(genero) {};
         virtual ~LivroFiccao();
 

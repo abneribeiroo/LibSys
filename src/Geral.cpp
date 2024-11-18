@@ -1,8 +1,9 @@
 #include "../include/Geral.h"
 
+
 Geral::Geral()
 {
-    //ctor
+    //dtor
 }
 
 Geral::~Geral()
