@@ -5,7 +5,7 @@
 #include "Data.h"
 using namespace std;
 
-class Geral : 
+class Geral 
 {
 protected:
     string titulo;
