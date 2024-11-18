@@ -2,6 +2,7 @@
 #define REVISTA_H
 
 #include "Geral.h"
+using namespace std;
 
 
 class Revista : public Geral
@@ -13,6 +14,9 @@ class Revista : public Geral
         void mostrarInfo() const override {
             Geral::mostrarInfo();
             cout << "Numero de Edicao: " << numeroEdicao << endl;
+        }
+        string getCategoria() const override {
+            return "Revista";
         }
         virtual ~Revista();
 

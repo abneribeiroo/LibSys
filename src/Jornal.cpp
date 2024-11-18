@@ -1,5 +1,11 @@
-#ifndef JORNAL_H
-#define JORNAL_H
+#include "../include/Jornal.h"
 
+Jornal::Jornal()
+{
+    //ctor
+}
 
-#endif
+Jornal::~Jornal()
+{
+    //dtor
+}

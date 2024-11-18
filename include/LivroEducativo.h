@@ -1,22 +1,27 @@
 #ifndef LIVROEDUCATIVO_H
-#define LIVROEDUCATIVO_h
+#define LIVROEDUCATIVO_H
 
 #include "Geral.h"
+#include <string>
+#include <iostream>
+
+using namespace std;
 
 class LivroEducativo : public Geral {
     string grauEscolaridade;
-    public :
-        LivroEducativo(string titulo, string autor, int anoPublicacao, string grauEscolaridade) : Geral(titulo, autor, anoPublicacao), grauEscolaridade(grauEscolaridade) {};
-        void mostrarInfo() const {
-            Geral::mostrarInfo();
-            cout << "Grau de Escolaridade: " << grauEscolaridade << endl;
-        }
 
-        virtual ~LivroEducativo();
-    protected:
-    
-    private:
+public:
+    LivroEducativo();
+    LivroEducativo(string titulo, string autor, int anoPublicacao, string grauEscolaridade);
+
+    void mostrarInfo() const override;
+
+    string getCategoria() const override;
+
+    virtual ~LivroEducativo();
+
+protected:
+private:
 };
-
 
 #endif // LIVROEDUCATIVO_H

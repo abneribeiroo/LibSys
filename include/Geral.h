@@ -5,22 +5,22 @@
 #include "Data.h"
 using namespace std;
 
-class Geral : 
-{
+class Geral{
 protected:
     string titulo;
     string autor;
-    Data dataPublicacao;
-    // Talvez adicionar mais atributos para as subclasses
+    int anoPublicacao;
+    // Data dataPublicacao;
+    //  Talvez adicionar mais atributos para as subclasses
 public:
     Geral();
-    Geral(string titulo, string autor, Data dataPublicacao) : titulo(titulo), autor(autor), dataPublicacao(dataPublicacao) {}
+    Geral(string titulo, string autor, int anoPublicacao) : titulo(titulo), autor(autor), anoPublicacao(anoPublicacao) {};
+
     virtual void mostrarInfo() const
     {
         cout << "Titulo: " << titulo << endl;
         cout << "Autor: " << autor << endl;
-        cout << "Data de Publicacao: " << endl;
-        dataPublicacao.mostrarInfo();
+        cout << "Ano de Publicacao: " << anoPublicacao << endl;
     }
 
     virtual ~Geral();

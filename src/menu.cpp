@@ -15,7 +15,76 @@ using namespace std;
 
 Uteis *uteis = new Uteis();
 
-Biblioteca *BIB = new Biblioteca();
+Biblioteca *Bib = new Biblioteca();
+
+void adicionarLivro() {
+    int tipo;
+    string titulo, autor, areaPesquisa, editor;
+    int anoPublicacao, edicao;
+
+    // Apresenta as opções de tipo de livro
+    cout << "Selecione o tipo de livro para adicionar:" << endl;
+    cout << "1. Livro Científico" << endl;
+    cout << "2. Livro de Ficção" << endl;
+    cout << "3. Livro Educativo" << endl;
+    cout << "4. Revista" << endl;
+    cout << "5. Jornal" << endl;
+    cout << "Escolha: ";
+    cin >> tipo;
+    cin.ignore(); // Limpa o buffer do teclado
+
+    // Coleta informações comuns a todos os livros
+    cout << "Digite o título: ";
+    getline(cin, titulo);
+    cout << "Digite o autor: ";
+    getline(cin, autor);
+    cout << "Digite o ano de publicação: ";
+    cin >> anoPublicacao;
+    cin.ignore(); // Limpa o buffer
+
+    Geral* novoLivro = nullptr;
+
+    // Criação do livro com base no tipo
+    switch (tipo) {
+    case 1: // Livro Científico
+        cout << "Digite a área de pesquisa: ";
+        getline(cin, areaPesquisa);
+        novoLivro = new LivroCientifico(titulo, autor, anoPublicacao, areaPesquisa);
+        break;
+    case 2: // Livro de Ficção
+        novoLivro = new LivroFiccao(titulo, autor, anoPublicacao, "Ficção");
+        break;
+    case 3: // Livro Educativo
+        cout << "Digite a edição: ";
+        cin >> edicao;
+        cin.ignore();
+        novoLivro = new LivroEducativo(titulo, autor, anoPublicacao, "Ensino Básico");
+        break;
+    case 4: // Revista
+        cout << "Digite o editor: ";
+        getline(cin, editor);
+        novoLivro = new Revista(titulo, autor, anoPublicacao, 1);
+        break;
+    case 5: // Jornal
+        cout << "Digite o editor: ";
+        getline(cin, editor);
+        novoLivro = new Jornal(titulo, autor, anoPublicacao,"12-10-2024", editor);
+        break;
+    default:
+        cout << "Tipo inválido!" << endl;
+        return;
+    }
+
+    // Adiciona o livro à biblioteca
+    if (novoLivro) {
+        //Escrever BIB
+        Bib->Add_Livros(novoLivro);
+        cout << "Livro adicionado com sucesso!" << endl;
+    } else {
+        cout << "Erro ao criar o livro!" << endl;
+    }
+}
+
 
 void MenuLivros()
 {
@@ -39,9 +108,10 @@ void MenuLivros()
         {
         case 1:
         {
-            Geral *livro1 = new LivroCientifico("Fisica Quantica", "Einstein", 1935, "Fisica");
-            BIB->Add_Livros(livro1);
-            BIB->Listagem_Livros();
+            adicionarLivro();
+            // Geral *livro1 = new LivroCientifico("Fisica Quantica", "Einstein", 1935, "Fisica");
+            // BIB->Add_Livros(livro1);
+            // BIB->Listagem_Livros();
             break;
         }
         case 2:
@@ -68,7 +138,7 @@ void MenuListarLivros()
     int option;
     do
     {
-        uteis->clearScreen();
+        // uteis->clearScreen();
 
         cout << "\n #-------------------------------------------------------------#";
         cout << "\n | (1) Listar livros por categoria                             |";
@@ -83,7 +153,7 @@ void MenuListarLivros()
         {
         case 1:
         {
-
+            Bib->Listagem_Livros();
             break;
         }
         case 2:
@@ -247,72 +317,4 @@ void MenuAvancado()
             break;
         }
     } while (option != 0);
-}
-
-
-void adicionarLivro() {
-    int tipo;
-    string titulo, autor, areaPesquisa, editor;
-    int anoPublicacao, edicao;
-
-    // Apresenta as opções de tipo de livro
-    cout << "Selecione o tipo de livro para adicionar:" << endl;
-    cout << "1. Livro Científico" << endl;
-    cout << "2. Livro de Ficção" << endl;
-    cout << "3. Livro Educativo" << endl;
-    cout << "4. Revista" << endl;
-    cout << "5. Jornal" << endl;
-    cout << "Escolha: ";
-    cin >> tipo;
-    cin.ignore(); // Limpa o buffer do teclado
-
-    // Coleta informações comuns a todos os livros
-    cout << "Digite o título: ";
-    getline(cin, titulo);
-    cout << "Digite o autor: ";
-    getline(cin, autor);
-    cout << "Digite o ano de publicação: ";
-    cin >> anoPublicacao;
-    cin.ignore(); // Limpa o buffer
-
-    Geral* novoLivro = nullptr;
-
-    // Criação do livro com base no tipo
-    switch (tipo) {
-    case 1: // Livro Científico
-        cout << "Digite a área de pesquisa: ";
-        getline(cin, areaPesquisa);
-        novoLivro = new LivroCientifico(titulo, autor, anoPublicacao, areaPesquisa);
-        break;
-    case 2: // Livro de Ficção
-        novoLivro = new LivroFiccao(titulo, autor, anoPublicacao);
-        break;
-    case 3: // Livro Educativo
-        cout << "Digite a edição: ";
-        cin >> edicao;
-        cin.ignore();
-        novoLivro = new LivroEducativo(titulo, autor, anoPublicacao, edicao);
-        break;
-    case 4: // Revista
-        cout << "Digite o editor: ";
-        getline(cin, editor);
-        novoLivro = new Revista(titulo, autor, anoPublicacao, editor);
-        break;
-    case 5: // Jornal
-        cout << "Digite o editor: ";
-        getline(cin, editor);
-        novoLivro = new Jornal(titulo, autor, anoPublicacao, editor);
-        break;
-    default:
-        cout << "Tipo inválido!" << endl;
-        return;
-    }
-
-    // Adiciona o livro à biblioteca
-    if (novoLivro) {
-        BIB->Add_Livros(novoLivro);
-        cout << "Livro adicionado com sucesso!" << endl;
-    } else {
-        cout << "Erro ao criar o livro!" << endl;
-    }
 }

@@ -11,5 +11,5 @@ void MenuListarRequisitantes();
 void MenuRequisicoes();
 void MenuListarRequisicoes();
 void MenuAvancado();
-
-#endif // MENUS_HPP
+void adicionarLivro();
+#endif // MENUS_HPPq
