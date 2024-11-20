@@ -9,7 +9,7 @@ class Pessoa
     protected:
     string nome;
     int idade;
-    
+
     public:
         Pessoa();
         Pessoa(string nome, int idade) : nome(nome), idade(idade) {};
@@ -19,6 +19,7 @@ class Pessoa
             cout << "Idade: " << idade << endl;
         }
         virtual ~Pessoa();
+        virtual string getCategoria() const = 0;
 
     protected:
 

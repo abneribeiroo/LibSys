@@ -15,7 +15,7 @@ class Professor : public Pessoa
             cout << "Tipo de Leitor: Professor" << endl;
         }
         virtual ~Professor();
-
+        
     protected:
 
     private:
