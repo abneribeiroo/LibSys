@@ -18,6 +18,7 @@ class Revista : public Geral
         string getCategoria() const override {
             return "Revista";
         }
+        int getNumeroEdicao() const { return numeroEdicao; }
         virtual ~Revista();
 
     protected:

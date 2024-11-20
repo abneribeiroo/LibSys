@@ -7,7 +7,8 @@
 
 using namespace std;
 
-class LivroEducativo : public Geral {
+class LivroEducativo : public Geral
+{
     string grauEscolaridade;
 
 public:
@@ -15,9 +16,8 @@ public:
     LivroEducativo(string titulo, string autor, int anoPublicacao, string grauEscolaridade);
 
     void mostrarInfo() const override;
-
     string getCategoria() const override;
-
+    string getGrauEscolaridade() const { return grauEscolaridade; }
     virtual ~LivroEducativo();
 
 protected:
