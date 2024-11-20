@@ -1,12 +1,16 @@
 #include "../include/Geral.h"
 
+using namespace std;
 
-Geral::Geral()
-{
-    //dtor
-}
+Geral::Geral() : titulo(""), autor(""), anoPublicacao(0), disponivel(true) {}
 
-Geral::~Geral()
+Geral::Geral(string titulo, string autor, int anoPublicacao)
+    : titulo(titulo), autor(autor), anoPublicacao(anoPublicacao), disponivel(true) {}
+
+void Geral::mostrarInfo() const
 {
-    //dtor
+    cout << "Título: " << titulo << endl;
+    cout << "Autor: " << autor << endl;
+    cout << "Ano de Publicação: " << anoPublicacao << endl;
+    cout << "Disponível: " << (disponivel ? "Sim" : "Não") << endl;
 }

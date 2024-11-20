@@ -5,28 +5,35 @@
 #include "Data.h"
 using namespace std;
 
-class Geral{
+class Geral
+{
 protected:
     string titulo;
     string autor;
     int anoPublicacao;
+    bool disponivel;
     // Data dataPublicacao;
     //  Talvez adicionar mais atributos para as subclasses
 public:
     Geral();
-    Geral(string titulo, string autor, int anoPublicacao) : titulo(titulo), autor(autor), anoPublicacao(anoPublicacao) {};
+    Geral(string titulo, string autor, int anoPublicacao);
 
-    virtual void mostrarInfo() const
-    {
-        cout << "Titulo: " << titulo << endl;
-        cout << "Autor: " << autor << endl;
-        cout << "Ano de Publicacao: " << anoPublicacao << endl;
-    }
+    void setTitulo(const string &novoTitulo) { titulo = novoTitulo; }
 
-    virtual ~Geral();
+    void setAutor(const string &novoAutor) { autor = novoAutor; }
+
+    void setAnoPublicacao(int novoAno) { anoPublicacao = novoAno; }
+
+    virtual void mostrarInfo() const;
+
+    virtual ~Geral() = default;
     virtual string getCategoria() const = 0;
+    string getTitulo() const { return titulo; }
+    string getAutor() const { return autor; }
+    int getAnoPublicacao() const { return anoPublicacao; }
+    bool estaDisponivel() const { return disponivel; }
+    void setDisponibilidade(bool disp) { disponivel = disp; }
     // virtual string QuemEs() = 0;
-    // virtual void Show();
 };
 
 #endif // GERAL_H
