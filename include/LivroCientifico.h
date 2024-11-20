@@ -9,17 +9,13 @@ class LivroCientifico : public Geral
 
 public:
     LivroCientifico();
-    LivroCientifico(string titulo, string autor, int anoPublicacao, string areaPesquisa) : Geral(titulo, autor, anoPublicacao), areaPesquisa(areaPesquisa) {};
-    void mostrarInfo() const
-    {
-        Geral::mostrarInfo();
-        cout << "Area de Pesquisa: " << areaPesquisa << endl;
-    }
+    LivroCientifico(string titulo, string autor, int anoPublicacao, string areaPesquisa);
+    void mostrarInfo() const override;
     string getCategoria() const override
     {
         return "LivroCientifico";
-    }
-    
+    };
+    string getAreaPesquisa() const { return areaPesquisa; }
     virtual ~LivroCientifico();
 
 protected:
