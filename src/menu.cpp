@@ -17,7 +17,8 @@ Uteis *uteis = new Uteis();
 
 Biblioteca *Bib = new Biblioteca();
 
-void adicionarLivro() {
+void adicionarLivro()
+{
     int tipo;
     string titulo, autor, areaPesquisa, editor;
     int anoPublicacao, edicao;
@@ -42,10 +43,11 @@ void adicionarLivro() {
     cin >> anoPublicacao;
     cin.ignore(); // Limpa o buffer
 
-    Geral* novoLivro = nullptr;
+    Geral *novoLivro = nullptr;
 
     // Criação do livro com base no tipo
-    switch (tipo) {
+    switch (tipo)
+    {
     case 1: // Livro Científico
         cout << "Digite a área de pesquisa: ";
         getline(cin, areaPesquisa);
@@ -68,7 +70,7 @@ void adicionarLivro() {
     case 5: // Jornal
         cout << "Digite o editor: ";
         getline(cin, editor);
-        novoLivro = new Jornal(titulo, autor, anoPublicacao,"12-10-2024", editor);
+        novoLivro = new Jornal(titulo, autor, anoPublicacao, "12-10-2024", editor);
         break;
     default:
         cout << "Tipo inválido!" << endl;
@@ -76,22 +78,24 @@ void adicionarLivro() {
     }
 
     // Adiciona o livro à biblioteca
-    if (novoLivro) {
-        //Escrever BIB
+    if (novoLivro)
+    {
+        // Escrever BIB
         Bib->Add_Livros(novoLivro);
         cout << "Livro adicionado com sucesso!" << endl;
-    } else {
+    }
+    else
+    {
         cout << "Erro ao criar o livro!" << endl;
     }
 }
-
 
 void MenuLivros()
 {
     int option;
     do
     {
-        uteis->clearScreen();
+        //uteis->clearScreen();
 
         cout << "\n #-------------------------------------------------------------#";
         cout << "\n | (1) Adicionar livros                                        |";
@@ -103,22 +107,35 @@ void MenuLivros()
         cout << "\nQual a sua opcao: ";
         cin >> option;
 
-        uteis->clearScreen();
+        //uteis->clearScreen();
+        string isbn;
         switch (option)
         {
         case 1:
         {
-            adicionarLivro();
-            // Geral *livro1 = new LivroCientifico("Fisica Quantica", "Einstein", 1935, "Fisica");
-            // BIB->Add_Livros(livro1);
-            // BIB->Listagem_Livros();
+            Bib->testarFuncoes();
+            // adicionarLivro();
+            //  Geral *livro1 = new LivroCientifico("Fisica Quantica", "Einstein", 1935, "Fisica");
+            //  BIB->Add_Livros(livro1);
+            //  BIB->Listagem_Livros();
             break;
         }
         case 2:
-
+            cout << "Digite o ISBN do livro a remover: ";
+            cin >> isbn;
+            if (Bib->Remove_Livro(isbn))
+            {
+                cout << "Livro removido com sucesso!" << endl;
+            }
+            else
+            {
+                cout << "Livro não encontrado." << endl;
+            }
             break;
         case 3:
-
+            cout << "Digite o ISBN do livro a editar: ";
+            cin >> isbn;
+            Bib->Editar_Livro(isbn);
             break;
         case 4:
         {
@@ -143,6 +160,7 @@ void MenuListarLivros()
         cout << "\n #-------------------------------------------------------------#";
         cout << "\n | (1) Listar livros por categoria                             |";
         cout << "\n | (2) Listar livros agrupados por categoria                   |";
+        cout << "\n | (3) Buscar livro                                            |";
         cout << "\n | (0) Voltar                                                  |";
         cout << "\n #-------------------------------------------------------------#";
         cout << "\nQual a sua opcao: ";
@@ -159,9 +177,20 @@ void MenuListarLivros()
         case 2:
 
             break;
+        case 3:
+            break;
+            // cout << "Digite o ISBN do livro a buscar: ";
+            // cin >> isbn;
+            // {
+            //     Geral* livro = Bib->Buscar_Livro(isbn);
+            //     if (livro) {
+            //         livro->mostrarInfo();
+            //     } else {
+            //         cout << "Livro não encontrado." << endl;
+            //     }
         }
+
     } while (option != 0);
-    MenuLivros();
 }
 
 void MenuRequisitantes()
@@ -197,7 +226,7 @@ void MenuRequisitantes()
         }
 
     } while (option != 0);
-}
+};
 
 void MenuListarRequisitantes()
 {
@@ -222,7 +251,6 @@ void MenuListarRequisitantes()
             break;
         }
     } while (option != 0);
-    MenuRequisitantes();
 }
 
 void MenuRequisicoes()
@@ -286,7 +314,6 @@ void MenuListarRequisicoes()
             break;
         }
     } while (option != 0);
-    MenuRequisicoes();
 }
 
 void MenuAvancado()
