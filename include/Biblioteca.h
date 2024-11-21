@@ -43,8 +43,8 @@ public:
     vector<LivroEducativo *> BuscarLivrosEducativos(const string &grauEscolaridade = "") const;
     vector<Revista *> BuscarRevistas(int numeroEdicao = -1) const;
     vector<Jornal *> BuscarJornais(const string &dataPublicacao = "") const;
-    bool SaveToFile(string nf);
-    bool LoadFile(string nf);
+    bool SaveToFile(const string& filename);
+    bool LoadFile(const string& filename);
     void RelatorioCategoria(string cat);
     void Prorrogacao_Emprestimos();
     void Sistema_Notificacoes_Atraso();

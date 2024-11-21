@@ -1,0 +1,10 @@
+LivroCientifico;A Breve História do Tempo;Stephen Hawking;1988;Física
+LivroFiccao;1984;George Orwell;1949;Distopia
+LivroEducativo;Matemática Fundamental;Maria Silva;2020;Ensino Médio
+Revista;National Geographic;Vários Autores;2023;789
+Jornal;Folha de São Paulo;Equipe Editorial;2023;15/05/2023;Folha
+LivroCientifico;O Gene Egoísta;Richard Dawkins;1976;Biologia
+LivroFiccao;Cem Anos de Solidão;Gabriel García Márquez;1967;Realismo Mágico
+LivroEducativo;História do Brasil;João Santos;2018;Ensino Fundamental
+Revista;Superinteressante;Editora Abril;2023;432
+Jornal;The New York Times;NYT Editorial;2023;16/05/2023;NYT

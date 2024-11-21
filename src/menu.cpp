@@ -73,6 +73,7 @@
             }
             case 5:
             {
+                Bib->LoadFile("biblioteca.txt");
                 break;
             }
             }

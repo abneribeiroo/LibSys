@@ -1,31 +1,124 @@
 #include "../include/Biblioteca.h"
 #include <algorithm>
 #include <limits>
+#include <fstream>
+#include <sstream>
 
 Biblioteca::Biblioteca()
 {
     // ctor
 }
 
-Biblioteca::~Biblioteca() {
-    for (auto& par : Coleccao_LIVROS) {
-        for (auto& livro : par.second) {
+Biblioteca::~Biblioteca()
+{
+    for (auto &par : Coleccao_LIVROS)
+    {
+        for (auto &livro : par.second)
+        {
             delete livro;
         }
     }
 }
 
-bool Biblioteca::SaveToFile(string nf)
+bool Biblioteca::SaveToFile(const string& filename)
 {
-    cout << "Um dia faco este metodo <" << __FUNCTION__ << ">" << endl;
+    ofstream file(filename);
+    if (!file.is_open()) {
+        cout << "Erro ao abrir o arquivo para escrita." << endl;
+        return false;
+    }
+
+    for (const auto& pair : Coleccao_LIVROS) {
+        for (const Geral* livro : pair.second) {
+            file << livro->getCategoria() << ";"
+                 << livro->getTitulo() << ";"
+                 << livro->getAutor() << ";"
+                 << livro->getAnoPublicacao() << ";";
+
+            if (livro->getCategoria() == "LivroCientifico") {
+                const LivroCientifico* lc = dynamic_cast<const LivroCientifico*>(livro);
+                file << lc->getAreaPesquisa();
+            } else if (livro->getCategoria() == "LivroFiccao") {
+                const LivroFiccao* lf = dynamic_cast<const LivroFiccao*>(livro);
+                file << lf->getGenero();
+            } else if (livro->getCategoria() == "LivroEducativo") {
+                const LivroEducativo* le = dynamic_cast<const LivroEducativo*>(livro);
+                file << le->getGrauEscolaridade();
+            } else if (livro->getCategoria() == "Revista") {
+                const Revista* r = dynamic_cast<const Revista*>(livro);
+                file << r->getNumeroEdicao();
+            } else if (livro->getCategoria() == "Jornal") {
+                const Jornal* j = dynamic_cast<const Jornal*>(livro);
+                file << j->getDataPublicacao() << ";" << j->getEditor();
+            }
+
+            file << endl;
+        }
+    }
+
+    file.close();
+    cout << "Dados salvos com sucesso no arquivo " << filename << endl;
     return true;
 }
 
-bool Biblioteca::LoadFile(string nf)
+bool Biblioteca::LoadFile(const string &filename)
 {
-    cout << "Um dia faco este metodo <" << __FUNCTION__ << ">" << endl;
+    ifstream file(filename);
+    if (!file.is_open())
+    {
+        cout << "Erro ao abrir o arquivo para leitura." << endl;
+        return false;
+    }
+
+    string line;
+    while (getline(file, line))
+    {
+        stringstream ss(line);
+        string categoria, titulo, autor, anoPublicacaoStr, atributoEspecifico, editor;
+
+        getline(ss, categoria, ';');
+        getline(ss, titulo, ';');
+        getline(ss, autor, ';');
+        getline(ss, anoPublicacaoStr, ';');
+        getline(ss, atributoEspecifico, ';');
+
+        int anoPublicacao = stoi(anoPublicacaoStr);
+
+        Geral *livro = nullptr;
+
+        if (categoria == "LivroCientifico")
+        {
+            livro = new LivroCientifico(titulo, autor, anoPublicacao, atributoEspecifico);
+        }
+        else if (categoria == "LivroFiccao")
+        {
+            livro = new LivroFiccao(titulo, autor, anoPublicacao, atributoEspecifico);
+        }
+        else if (categoria == "LivroEducativo")
+        {
+            livro = new LivroEducativo(titulo, autor, anoPublicacao, atributoEspecifico);
+        }
+        else if (categoria == "Revista")
+        {
+            livro = new Revista(titulo, autor, anoPublicacao, stoi(atributoEspecifico));
+        }
+        else if (categoria == "Jornal")
+        {
+            getline(ss, editor, ';');
+            livro = new Jornal(titulo, autor, anoPublicacao,atributoEspecifico, editor);
+        }
+
+        if (livro)
+        {
+            Add_Livros(livro);
+        }
+    }
+
+    file.close();
+    cout << "Dados carregados com sucesso do arquivo " << filename << endl;
     return true;
 }
+
 void Biblioteca::RelatorioCategoria(string cat)
 {
     cout << "Um dia faco este metodo <" << __FUNCTION__ << ">" << endl;
@@ -50,9 +143,10 @@ bool Biblioteca::Add_Leitor(Pessoa *P)
     return true;
 }
 
-
-bool Biblioteca::Add_Livros(Geral* L) {
-    if (L == nullptr) {
+bool Biblioteca::Add_Livros(Geral *L)
+{
+    if (L == nullptr)
+    {
         cout << "Erro: Tentativa de adicionar um livro nulo!" << endl;
         return false;
     };
@@ -61,7 +155,8 @@ bool Biblioteca::Add_Livros(Geral* L) {
     return true;
 }
 
-void Biblioteca::getCommonBookInfo(string& titulo, string& autor, int& anoPublicacao) {
+void Biblioteca::getCommonBookInfo(string &titulo, string &autor, int &anoPublicacao)
+{
     cout << "Digite o título: ";
     getline(cin >> ws, titulo);
     cout << "Digite o autor: ";
@@ -71,7 +166,8 @@ void Biblioteca::getCommonBookInfo(string& titulo, string& autor, int& anoPublic
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
-void Biblioteca::registrarNovoLivro(){
+void Biblioteca::registrarNovoLivro()
+{
     int tipo;
     string titulo, autor, areaPesquisa, editor, grauEscolaridade;
     int anoPublicacao, numeroEdicao;
@@ -88,9 +184,10 @@ void Biblioteca::registrarNovoLivro(){
 
     getCommonBookInfo(titulo, autor, anoPublicacao);
 
-    Geral* novoLivro = nullptr;
+    Geral *novoLivro = nullptr;
 
-    switch (tipo) {
+    switch (tipo)
+    {
     case 1: // Livro Científico
         cout << "Digite a área de pesquisa: ";
         getline(cin >> ws, areaPesquisa);
@@ -124,24 +221,34 @@ void Biblioteca::registrarNovoLivro(){
         return;
     }
 
-    if (novoLivro) {
-        if (Add_Livros(novoLivro)) {
+    if (novoLivro)
+    {
+        if (Add_Livros(novoLivro))
+        {
             cout << "Livro adicionado com sucesso!" << endl;
-        } else {
+        }
+        else
+        {
             cout << "Erro ao adicionar o livro." << endl;
             delete novoLivro;
         }
-    } else {
+    }
+    else
+    {
         cout << "Erro ao criar o livro!" << endl;
     }
 }
 
-bool Biblioteca::Remove_Livro(const string& isbn) {
-    for (auto& par : Coleccao_LIVROS) {
-        auto& lista = par.second;
+bool Biblioteca::Remove_Livro(const string &isbn)
+{
+    for (auto &par : Coleccao_LIVROS)
+    {
+        auto &lista = par.second;
         auto it = find_if(lista.begin(), lista.end(),
-            [&isbn](const Geral* livro) { return livro->getTitulo() == isbn; });
-        if (it != lista.end()) {
+                          [&isbn](const Geral *livro)
+                          { return livro->getTitulo() == isbn; });
+        if (it != lista.end())
+        {
             delete *it;
             lista.erase(it);
             return true;
@@ -150,73 +257,94 @@ bool Biblioteca::Remove_Livro(const string& isbn) {
     return false;
 }
 
-Geral* Biblioteca::Buscar_Livro(const string& isbn) const {
-    for (const auto& par : Coleccao_LIVROS) {
-        for (const auto* livro : par.second) {
-            if (livro->getTitulo() == isbn) {
-                return const_cast<Geral*>(livro);
+Geral *Biblioteca::Buscar_Livro(const string &isbn) const
+{
+    for (const auto &par : Coleccao_LIVROS)
+    {
+        for (const auto *livro : par.second)
+        {
+            if (livro->getTitulo() == isbn)
+            {
+                return const_cast<Geral *>(livro);
             }
         }
     }
     return nullptr;
 }
 
-void Biblioteca::Editar_Livro(const string& isbn) {
-    Geral* livro = Buscar_Livro(isbn);
-    if (livro) {
+void Biblioteca::Editar_Livro(const string &isbn)
+{
+    Geral *livro = Buscar_Livro(isbn);
+    if (livro)
+    {
         string novoTitulo, novoAutor;
         int novoAno;
 
         cout << "Novo título (ou Enter para manter): ";
         getline(cin, novoTitulo);
-        if (!novoTitulo.empty()) livro->setTitulo(novoTitulo);
+        if (!novoTitulo.empty())
+            livro->setTitulo(novoTitulo);
 
         cout << "Novo autor (ou Enter para manter): ";
         getline(cin, novoAutor);
-        if (!novoAutor.empty()) livro->setAutor(novoAutor);
+        if (!novoAutor.empty())
+            livro->setAutor(novoAutor);
 
         cout << "Novo ano de publicação (ou 0 para manter): ";
         cin >> novoAno;
-        if (novoAno != 0) livro->setAnoPublicacao(novoAno);
+        if (novoAno != 0)
+            livro->setAnoPublicacao(novoAno);
 
         cout << "Livro editado com sucesso!" << endl;
-    } else {
+    }
+    else
+    {
         cout << "Livro não encontrado." << endl;
     }
 }
 
-
-void Biblioteca::Listagem_Livros() const {
-    for (const auto& par : Coleccao_LIVROS) {
+void Biblioteca::Listagem_Livros() const
+{
+    for (const auto &par : Coleccao_LIVROS)
+    {
         cout << "Categoria: " << par.first << endl;
-        for (const auto* livro : par.second) {
+        for (const auto *livro : par.second)
+        {
             livro->mostrarInfo();
             cout << "--------------------" << endl;
         }
     }
 }
 
-void Biblioteca::Listagem_Livros_Por_Categoria(const string& categoria) const {
+void Biblioteca::Listagem_Livros_Por_Categoria(const string &categoria) const
+{
     auto it = Coleccao_LIVROS.find(categoria);
-    if (it != Coleccao_LIVROS.end()) {
+    if (it != Coleccao_LIVROS.end())
+    {
         cout << "Categoria: " << categoria << endl;
-        for (const auto* livro : it->second) {
+        for (const auto *livro : it->second)
+        {
             livro->mostrarInfo();
             cout << "--------------------" << endl;
         }
-    } else {
+    }
+    else
+    {
         cout << "Categoria não encontrada." << endl;
     }
 }
 
-
-vector<LivroCientifico*> Biblioteca::BuscarLivrosCientificos(const string& areaPesquisa) const {
-    vector<LivroCientifico*> resultado;
+vector<LivroCientifico *> Biblioteca::BuscarLivrosCientificos(const string &areaPesquisa) const
+{
+    vector<LivroCientifico *> resultado;
     auto it = Coleccao_LIVROS.find("LivroCientifico");
-    if (it != Coleccao_LIVROS.end()) {
-        for (auto* livro : it->second) {
-            LivroCientifico* livroCientifico = dynamic_cast<LivroCientifico*>(livro);
-            if (livroCientifico && (areaPesquisa.empty() || livroCientifico->getAreaPesquisa() == areaPesquisa)) {
+    if (it != Coleccao_LIVROS.end())
+    {
+        for (auto *livro : it->second)
+        {
+            LivroCientifico *livroCientifico = dynamic_cast<LivroCientifico *>(livro);
+            if (livroCientifico && (areaPesquisa.empty() || livroCientifico->getAreaPesquisa() == areaPesquisa))
+            {
                 resultado.push_back(livroCientifico);
             }
         }
@@ -224,13 +352,17 @@ vector<LivroCientifico*> Biblioteca::BuscarLivrosCientificos(const string& areaP
     return resultado;
 }
 
-vector<LivroFiccao*> Biblioteca::BuscarLivrosFiccao(const string& genero) const {
-    vector<LivroFiccao*> resultado;
+vector<LivroFiccao *> Biblioteca::BuscarLivrosFiccao(const string &genero) const
+{
+    vector<LivroFiccao *> resultado;
     auto it = Coleccao_LIVROS.find("LivroFiccao");
-    if (it != Coleccao_LIVROS.end()) {
-        for (auto* livro : it->second) {
-            LivroFiccao* livroFiccao = dynamic_cast<LivroFiccao*>(livro);
-            if (livroFiccao && (genero.empty() || livroFiccao->getGenero() == genero)) {
+    if (it != Coleccao_LIVROS.end())
+    {
+        for (auto *livro : it->second)
+        {
+            LivroFiccao *livroFiccao = dynamic_cast<LivroFiccao *>(livro);
+            if (livroFiccao && (genero.empty() || livroFiccao->getGenero() == genero))
+            {
                 resultado.push_back(livroFiccao);
             }
         }
@@ -238,13 +370,17 @@ vector<LivroFiccao*> Biblioteca::BuscarLivrosFiccao(const string& genero) const 
     return resultado;
 }
 
-vector<LivroEducativo*> Biblioteca::BuscarLivrosEducativos(const string& grauEscolaridade) const {
-    vector<LivroEducativo*> resultado;
+vector<LivroEducativo *> Biblioteca::BuscarLivrosEducativos(const string &grauEscolaridade) const
+{
+    vector<LivroEducativo *> resultado;
     auto it = Coleccao_LIVROS.find("LivroEducativo");
-    if (it != Coleccao_LIVROS.end()) {
-        for (auto* livro : it->second) {
-            LivroEducativo* livroEducativo = dynamic_cast<LivroEducativo*>(livro);
-            if (livroEducativo && (grauEscolaridade.empty() || livroEducativo->getGrauEscolaridade() == grauEscolaridade)) {
+    if (it != Coleccao_LIVROS.end())
+    {
+        for (auto *livro : it->second)
+        {
+            LivroEducativo *livroEducativo = dynamic_cast<LivroEducativo *>(livro);
+            if (livroEducativo && (grauEscolaridade.empty() || livroEducativo->getGrauEscolaridade() == grauEscolaridade))
+            {
                 resultado.push_back(livroEducativo);
             }
         }
@@ -252,13 +388,17 @@ vector<LivroEducativo*> Biblioteca::BuscarLivrosEducativos(const string& grauEsc
     return resultado;
 }
 
-vector<Revista*> Biblioteca::BuscarRevistas(int numeroEdicao) const {
-    vector<Revista*> resultado;
+vector<Revista *> Biblioteca::BuscarRevistas(int numeroEdicao) const
+{
+    vector<Revista *> resultado;
     auto it = Coleccao_LIVROS.find("Revista");
-    if (it != Coleccao_LIVROS.end()) {
-        for (auto* livro : it->second) {
-            Revista* revista = dynamic_cast<Revista*>(livro);
-            if (revista && (numeroEdicao == -1 || revista->getNumeroEdicao() == numeroEdicao)) {
+    if (it != Coleccao_LIVROS.end())
+    {
+        for (auto *livro : it->second)
+        {
+            Revista *revista = dynamic_cast<Revista *>(livro);
+            if (revista && (numeroEdicao == -1 || revista->getNumeroEdicao() == numeroEdicao))
+            {
                 resultado.push_back(revista);
             }
         }
@@ -266,13 +406,17 @@ vector<Revista*> Biblioteca::BuscarRevistas(int numeroEdicao) const {
     return resultado;
 }
 
-vector<Jornal*> Biblioteca::BuscarJornais(const string& dataPublicacao) const {
-    vector<Jornal*> resultado;
+vector<Jornal *> Biblioteca::BuscarJornais(const string &dataPublicacao) const
+{
+    vector<Jornal *> resultado;
     auto it = Coleccao_LIVROS.find("Jornal");
-    if (it != Coleccao_LIVROS.end()) {
-        for (auto* livro : it->second) {
-            Jornal* jornal = dynamic_cast<Jornal*>(livro);
-            if (jornal && (dataPublicacao.empty() || jornal->getDataPublicacao() == dataPublicacao)) {
+    if (it != Coleccao_LIVROS.end())
+    {
+        for (auto *livro : it->second)
+        {
+            Jornal *jornal = dynamic_cast<Jornal *>(livro);
+            if (jornal && (dataPublicacao.empty() || jornal->getDataPublicacao() == dataPublicacao))
+            {
                 resultado.push_back(jornal);
             }
         }
@@ -280,10 +424,8 @@ vector<Jornal*> Biblioteca::BuscarJornais(const string& dataPublicacao) const {
     return resultado;
 }
 
-
-
-
-void Biblioteca::testarFuncoes() {
+void Biblioteca::testarFuncoes()
+{
     // Adicionar livros de teste
     Add_Livros(new LivroCientifico("Física Quântica", "Albert Einstein", 1935, "Física"));
     Add_Livros(new LivroCientifico("Origem das Espécies", "Charles Darwin", 1859, "Biologia"));
@@ -295,35 +437,40 @@ void Biblioteca::testarFuncoes() {
 
     cout << "Testando busca de livros científicos:" << endl;
     auto livrosCientificos = BuscarLivrosCientificos("Física");
-    for (auto livro : livrosCientificos) {
+    for (auto livro : livrosCientificos)
+    {
         livro->mostrarInfo();
         cout << endl;
     }
 
     cout << "Testando busca de livros de ficção:" << endl;
     auto livrosFiccao = BuscarLivrosFiccao("Distopia");
-    for (auto livro : livrosFiccao) {
+    for (auto livro : livrosFiccao)
+    {
         livro->mostrarInfo();
         cout << endl;
     }
 
     cout << "Testando busca de livros educativos:" << endl;
     auto livrosEducativos = BuscarLivrosEducativos("Ensino Fundamental");
-    for (auto livro : livrosEducativos) {
+    for (auto livro : livrosEducativos)
+    {
         livro->mostrarInfo();
         cout << endl;
     }
 
     cout << "Testando busca de revistas:" << endl;
     auto revistas = BuscarRevistas(1);
-    for (auto revista : revistas) {
+    for (auto revista : revistas)
+    {
         revista->mostrarInfo();
         cout << endl;
     }
 
     cout << "Testando busca de jornais:" << endl;
     auto jornais = BuscarJornais("2023-05-15");
-    for (auto jornal : jornais) {
+    for (auto jornal : jornais)
+    {
         jornal->mostrarInfo();
         cout << endl;
     }

@@ -1,4 +1,4 @@
- 
+
 
 incluindo instruções sobre como instalar o `make` no Windows.
 
@@ -19,7 +19,7 @@ Este projeto é um sistema de gestão de biblioteca, escrito em C++. O `Makefile
 Para compilar o projeto, você pode usar o seguinte comando no terminal:
 
 ```bash
-make 
+make
 ```
 
 Isso irá compilar todos os arquivos fonte e gerar o executável `main`.
@@ -75,3 +75,4 @@ Se você estiver usando Windows e não tiver o `make` instalado, siga as instru�
    ```bash
    pacman -S mingw-w64-x86_64-gcc
    ```
+
