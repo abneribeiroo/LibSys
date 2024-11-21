@@ -21,11 +21,15 @@ private:
     map<string, list<Geral *>> Coleccao_LIVROS;
     map<string, list<Pessoa *>> Coleccao_LEITORES;
 
+
+    void getCommonBookInfo(std::string& titulo, std::string& autor, int& anoPublicacao);
+
 public:
     Biblioteca();
     ~Biblioteca();
 
     bool Add_Livros(Geral *L);
+    void registrarNovoLivro();
     bool Remove_Livro(const string &isbn);
     Geral *Buscar_Livro(const string &isbn) const;
     void Editar_Livro(const std::string &isbn);

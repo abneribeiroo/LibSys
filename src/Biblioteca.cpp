@@ -1,5 +1,6 @@
 #include "../include/Biblioteca.h"
 #include <algorithm>
+#include <limits>
 
 Biblioteca::Biblioteca()
 {
@@ -58,6 +59,81 @@ bool Biblioteca::Add_Livros(Geral* L) {
     string categoria = L->getCategoria();
     Coleccao_LIVROS[categoria].push_back(L);
     return true;
+}
+
+void Biblioteca::getCommonBookInfo(string& titulo, string& autor, int& anoPublicacao) {
+    cout << "Digite o título: ";
+    getline(cin >> ws, titulo);
+    cout << "Digite o autor: ";
+    getline(cin >> ws, autor);
+    cout << "Digite o ano de publicação: ";
+    cin >> anoPublicacao;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+}
+
+void Biblioteca::registrarNovoLivro(){
+    int tipo;
+    string titulo, autor, areaPesquisa, editor, grauEscolaridade;
+    int anoPublicacao, numeroEdicao;
+
+    cout << "Selecione o tipo de livro para adicionar:" << endl;
+    cout << "1. Livro Científico" << endl;
+    cout << "2. Livro de Ficção" << endl;
+    cout << "3. Livro Educativo" << endl;
+    cout << "4. Revista" << endl;
+    cout << "5. Jornal" << endl;
+    cout << "Escolha: ";
+    cin >> tipo;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    getCommonBookInfo(titulo, autor, anoPublicacao);
+
+    Geral* novoLivro = nullptr;
+
+    switch (tipo) {
+    case 1: // Livro Científico
+        cout << "Digite a área de pesquisa: ";
+        getline(cin >> ws, areaPesquisa);
+        novoLivro = new LivroCientifico(titulo, autor, anoPublicacao, areaPesquisa);
+        break;
+    case 2: // Livro de Ficção
+        cout << "Digite o gênero: ";
+        getline(cin >> ws, areaPesquisa);
+        novoLivro = new LivroFiccao(titulo, autor, anoPublicacao, areaPesquisa);
+        break;
+    case 3: // Livro Educativo
+        cout << "Digite o grau de escolaridade: ";
+        getline(cin >> ws, grauEscolaridade);
+        novoLivro = new LivroEducativo(titulo, autor, anoPublicacao, grauEscolaridade);
+        break;
+    case 4: // Revista
+        cout << "Digite o número da edição: ";
+        cin >> numeroEdicao;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        novoLivro = new Revista(titulo, autor, anoPublicacao, numeroEdicao);
+        break;
+    case 5: // Jornal
+        cout << "Digite a data de publicação: ";
+        getline(cin >> ws, areaPesquisa);
+        cout << "Digite o editor: ";
+        getline(cin >> ws, editor);
+        novoLivro = new Jornal(titulo, autor, anoPublicacao, areaPesquisa, editor);
+        break;
+    default:
+        cout << "Tipo inválido!" << endl;
+        return;
+    }
+
+    if (novoLivro) {
+        if (Add_Livros(novoLivro)) {
+            cout << "Livro adicionado com sucesso!" << endl;
+        } else {
+            cout << "Erro ao adicionar o livro." << endl;
+            delete novoLivro;
+        }
+    } else {
+        cout << "Erro ao criar o livro!" << endl;
+    }
 }
 
 bool Biblioteca::Remove_Livro(const string& isbn) {
