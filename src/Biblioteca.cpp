@@ -61,6 +61,7 @@ bool Biblioteca::SaveToFile(const string& filename)
     return true;
 }
 
+
 bool Biblioteca::LoadFile(const string &filename)
 {
     ifstream file(filename);
