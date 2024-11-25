@@ -11,6 +11,7 @@ protected:
     string titulo;
     string autor;
     int anoPublicacao;
+   // string isbn;
     bool disponivel;
     // Data dataPublicacao;
     //  Talvez adicionar mais atributos para as subclasses

@@ -13,6 +13,10 @@ using namespace std;
 #include "LivroCientifico.h"
 #include "LivroFiccao.h"
 #include "LivroEducativo.h"
+#include "Professor.h"
+#include "LeitorComum.h"
+#include "Estudante.h"
+#include "Senior.h"
 using namespace std;
 
 class Biblioteca
@@ -21,8 +25,7 @@ private:
     map<string, list<Geral *>> Coleccao_LIVROS;
     map<string, list<Pessoa *>> Coleccao_LEITORES;
 
-
-    void getCommonBookInfo(std::string& titulo, std::string& autor, int& anoPublicacao);
+    void getCommonBookInfo(std::string &titulo, std::string &autor, int &anoPublicacao);
 
 public:
     Biblioteca();
@@ -37,20 +40,24 @@ public:
     void Listagem_Livros_Por_Categoria(const string &categoria) const;
     void Relatorio_Livros_Por_Categoria() const;
 
-
     vector<LivroCientifico *> BuscarLivrosCientificos(const string &areaPesquisa = "") const;
     vector<LivroFiccao *> BuscarLivrosFiccao(const string &genero = "") const;
     vector<LivroEducativo *> BuscarLivrosEducativos(const string &grauEscolaridade = "") const;
     vector<Revista *> BuscarRevistas(int numeroEdicao = -1) const;
     vector<Jornal *> BuscarJornais(const string &dataPublicacao = "") const;
-    bool SaveToFile(const string& filename);
-    bool LoadFile(const string& filename);
+
+    bool SaveToFile(const string &filename);
+    bool LoadFile(const string &filename);
     void RelatorioCategoria(string cat);
     void Prorrogacao_Emprestimos();
     void Sistema_Notificacoes_Atraso();
     bool Add_Leitores();
     bool Add_Leitor(Pessoa *P);
-
+    bool Remove_Leitor(int id);
+    Pessoa *Buscar_Leitor(int id) const;
+    void Editar_Leitor(int id);
+    void Listagem_Leitores() const;
+    void registarLeitor();
     void testarFuncoes();
 };
 

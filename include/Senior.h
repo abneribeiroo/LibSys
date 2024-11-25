@@ -10,13 +10,18 @@ class Senior : public Pessoa
 private:
     /* data */
 public:
-    Senior(string nome, int idade) : Pessoa(nome, idade) {};
+    Senior();
+    Senior(string nome, int idade, int id) : Pessoa(nome, idade, id) {};
 
     void mostrarInfo() const {
         Pessoa::mostrarInfo();
         cout << "Tipo de Leitor: Senior" << endl;
     }
     virtual ~Senior();
+    string getCategoria() const override
+    {
+        return "Senior";
+    };
 };
 
 

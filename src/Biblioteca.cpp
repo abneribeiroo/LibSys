@@ -1,4 +1,5 @@
 #include "../include/Biblioteca.h"
+#include "../include/Uteis.h"
 #include <algorithm>
 #include <limits>
 #include <fstream>
@@ -20,35 +21,47 @@ Biblioteca::~Biblioteca()
     }
 }
 
-bool Biblioteca::SaveToFile(const string& filename)
+bool Biblioteca::SaveToFile(const string &filename)
 {
     ofstream file(filename);
-    if (!file.is_open()) {
+    if (!file.is_open())
+    {
         cout << "Erro ao abrir o arquivo para escrita." << endl;
         return false;
     }
 
-    for (const auto& pair : Coleccao_LIVROS) {
-        for (const Geral* livro : pair.second) {
+    for (const auto &pair : Coleccao_LIVROS)
+    {
+        for (const Geral *livro : pair.second)
+        {
             file << livro->getCategoria() << ";"
                  << livro->getTitulo() << ";"
                  << livro->getAutor() << ";"
                  << livro->getAnoPublicacao() << ";";
 
-            if (livro->getCategoria() == "LivroCientifico") {
-                const LivroCientifico* lc = dynamic_cast<const LivroCientifico*>(livro);
+            if (livro->getCategoria() == "LivroCientifico")
+            {
+                const LivroCientifico *lc = dynamic_cast<const LivroCientifico *>(livro);
                 file << lc->getAreaPesquisa();
-            } else if (livro->getCategoria() == "LivroFiccao") {
-                const LivroFiccao* lf = dynamic_cast<const LivroFiccao*>(livro);
+            }
+            else if (livro->getCategoria() == "LivroFiccao")
+            {
+                const LivroFiccao *lf = dynamic_cast<const LivroFiccao *>(livro);
                 file << lf->getGenero();
-            } else if (livro->getCategoria() == "LivroEducativo") {
-                const LivroEducativo* le = dynamic_cast<const LivroEducativo*>(livro);
+            }
+            else if (livro->getCategoria() == "LivroEducativo")
+            {
+                const LivroEducativo *le = dynamic_cast<const LivroEducativo *>(livro);
                 file << le->getGrauEscolaridade();
-            } else if (livro->getCategoria() == "Revista") {
-                const Revista* r = dynamic_cast<const Revista*>(livro);
+            }
+            else if (livro->getCategoria() == "Revista")
+            {
+                const Revista *r = dynamic_cast<const Revista *>(livro);
                 file << r->getNumeroEdicao();
-            } else if (livro->getCategoria() == "Jornal") {
-                const Jornal* j = dynamic_cast<const Jornal*>(livro);
+            }
+            else if (livro->getCategoria() == "Jornal")
+            {
+                const Jornal *j = dynamic_cast<const Jornal *>(livro);
                 file << j->getDataPublicacao() << ";" << j->getEditor();
             }
 
@@ -60,7 +73,6 @@ bool Biblioteca::SaveToFile(const string& filename)
     cout << "Dados salvos com sucesso no arquivo " << filename << endl;
     return true;
 }
-
 
 bool Biblioteca::LoadFile(const string &filename)
 {
@@ -106,7 +118,7 @@ bool Biblioteca::LoadFile(const string &filename)
         else if (categoria == "Jornal")
         {
             getline(ss, editor, ';');
-            livro = new Jornal(titulo, autor, anoPublicacao,atributoEspecifico, editor);
+            livro = new Jornal(titulo, autor, anoPublicacao, atributoEspecifico, editor);
         }
 
         if (livro)
@@ -134,11 +146,6 @@ void Biblioteca::Sistema_Notificacoes_Atraso()
 }
 
 bool Biblioteca::Add_Leitores()
-{
-    cout << "Um dia faco este metodo <" << __FUNCTION__ << ">" << endl;
-    return true;
-}
-bool Biblioteca::Add_Leitor(Pessoa *P)
 {
     cout << "Um dia faco este metodo <" << __FUNCTION__ << ">" << endl;
     return true;
@@ -478,4 +485,127 @@ void Biblioteca::testarFuncoes()
 
     cout << "Testando listagem de todos os livros:" << endl;
     Listagem_Livros();
+}
+
+bool Biblioteca::Add_Leitor(Pessoa *P)
+{
+    if (P == nullptr)
+    {
+        cout << "Erro: Tentativa de adicionar uma Pessoa nula!" << endl;
+        return false;
+    };
+    string categoria = P->getCategoria();
+    Coleccao_LEITORES[categoria].push_back(P);
+    return true;
+}
+
+void Biblioteca::registarLeitor(){
+  int tipo;
+  string nome;
+  int id, idade;
+
+  // Apresenta as opções de tipo de livro
+  cout << "Selecione o tipo de livro para adicionar:" << endl;
+  cout << "1. Estudante" << endl;
+  cout << "2. Leitor Comum" << endl;
+  cout << "3. Professor" << endl;
+  cout << "4. Senior" << endl;
+  cout << "Escolha: ";
+  cin >> tipo;
+  cin.ignore(); // Limpa o buffer do teclado
+
+  // Coleta informações comuns a todos os livros
+  cout << "Digite o Nome: ";
+  getline(cin, nome);
+  cout << "Digite a Idade: ";
+  cin >> idade;
+  cin.ignore(); // Limpa o buffer
+
+  id = 10;
+
+  Pessoa* novaPessoa = nullptr;
+
+  switch (tipo) {
+    case 1:
+      novaPessoa = new Estudante(nome, idade, id);
+      break;
+    case 2:
+      novaPessoa = new LeitorComum(nome, idade, id);
+      break;
+    case 3:
+      novaPessoa = new Professor(nome, idade, id);
+      break;
+    case 4:
+      novaPessoa = new Senior(nome, idade, id);
+      break;
+    default:
+      cout << "Opção inválida!" << endl;
+      return;
+  }
+  if(novaPessoa != nullptr){
+    Add_Leitor(novaPessoa);
+    cout << "Leitor registrado com sucesso!" << endl;
+  }else{
+    cout << "Erro ao registrar leitor!" << endl;
+  }
+}
+
+
+bool Biblioteca::Remove_Leitor(int id) {
+  for (auto &par : Coleccao_LEITORES) {
+    auto &lista = par.second;
+    auto it = find_if(lista.begin(), lista.end(), [id](const Pessoa *pessoa) {
+      return pessoa->getId() == id;
+    });
+    if (it != lista.end()) {
+      delete *it;
+      lista.erase(it);
+      return true;
+    }
+  }
+  return false;
+}
+
+Pessoa *Biblioteca::Buscar_Leitor(int id) const {
+  for (const auto &par : Coleccao_LEITORES) {
+    for (const auto *pessoa : par.second) {
+      if (pessoa->getId() == id) {
+        return const_cast<Pessoa *>(pessoa);
+      }
+    }
+  }
+  return nullptr;
+}
+
+void Biblioteca::Editar_Leitor(int id) {
+  Pessoa *pessoa = Buscar_Leitor(id);
+  if (pessoa) {
+    string novoNome;
+    int novaIdade;
+
+    cout << "Novo Nome (ou Enter para manter): ";
+    getline(cin, novoNome);
+    if (!novoNome.empty())
+      pessoa->setNome(novoNome);
+
+    cout << "Nova Idade (ou 0 para manter): ";
+    cin >> novaIdade;
+    if (novaIdade != 0)
+      pessoa->setIdade(novaIdade);
+
+    cout << "Pessoa editada com sucesso!" << endl;
+  } else {
+    cout << "Pessoa não encontrada." << endl;
+  }
+}
+
+void Biblioteca::Listagem_Leitores() const {
+  for (const auto &par : Coleccao_LEITORES) {
+    cout << "Categoria: " << par.first << endl;
+    for (const auto *pessoa : par.second) {
+      pessoa->mostrarInfo();
+      cout << "--------------------" << endl;
+    }
+  }
+    Uteis::Pausar();
 }

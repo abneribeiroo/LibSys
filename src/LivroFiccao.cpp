@@ -8,6 +8,7 @@ void LivroFiccao::mostrarInfo() const {
     Geral::mostrarInfo();
     cout << "Gênero: " << genero << endl;
 }
+
 LivroFiccao::~LivroFiccao()
 {
     // dtor

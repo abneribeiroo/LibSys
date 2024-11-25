@@ -3,10 +3,15 @@
 #include "include/Biblioteca.h"
 #include "include/LivroCientifico.h"
 
+
+Biblioteca *g_Bib = nullptr;
+
 int main()
 {
     cout << "\t\tBiblioteca-ESTGV!\n";
 
+    g_Bib = new Biblioteca();
+    g_Bib->LoadFile("biblioteca.txt");
 
     int option;
     do
@@ -40,14 +45,16 @@ int main()
         }
         case 5:
         {
+            cout << "\n\n ***** Saindo *****\n";
             break;
         }
         case 0:
+            //g_Bib->SaveToFile("biblioteca.txt");
             cout << "\n\n ***** Salvando os dados *****\n";
             cout << " ***** Saindo do programa *****\n";
             break;
         }
-    } while (option != 0);
+    } while (option != 0 && option != 5);
 
     return 0;
 }

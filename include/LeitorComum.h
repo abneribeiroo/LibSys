@@ -8,14 +8,17 @@ class LeitorComum : public Pessoa
 {
     public:
         LeitorComum();
-        LeitorComum(string nome, int idade ) : Pessoa(nome, idade) {};
+        LeitorComum(string nome, int idade, int id) : Pessoa(nome, idade, id) {};
 
         void mostrarInfo() const {
             Pessoa::mostrarInfo();
             cout << "Tipo de Leitor: Comum" << endl;
         }
         virtual ~LeitorComum();
-
+        string getCategoria() const override
+        {
+            return "Leitor Comum";
+        };
 
 
     protected:

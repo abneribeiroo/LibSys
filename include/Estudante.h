@@ -1,24 +1,27 @@
-#ifndef ESTUDANTE_h
-#define ESTUDANTE_h
+#ifndef ESTUDANTE_H
+#define ESTUDANTE_H
+
 #include "Pessoa.h"
-#include <iostream>
-#include <string>
-using namespace std;
+
 
 class Estudante : public Pessoa
 {
     public:
-        Estudante(string nome, int idade) : Pessoa(nome, idade) {};
+        Estudante();
+        Estudante(string nome, int idade, int id) : Pessoa(nome, idade, id){};
 
         void mostrarInfo() const {
             Pessoa::mostrarInfo();
             cout << "Tipo de Leitor: Estudante" << endl;
         }
         virtual ~Estudante();
-
+        string getCategoria() const override
+        {
+            return "Estudante";
+        };
     protected:
 
     private:
 };
 
-#endif // !ESTUDANTE_h
+#endif // Estudante_H

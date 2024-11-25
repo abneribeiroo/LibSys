@@ -5,7 +5,9 @@
 #else
 #include <cstdlib>
 #endif
-
+#include <iostream>
+#include <limits>
+using namespace std;
 
 Uteis::Uteis()
 {
@@ -26,3 +28,12 @@ void Uteis::clearScreen() {
     system("clear");
 #endif
 }
+
+
+void Uteis::Pausar() {
+    cout << "Pressione Enter para continuar...";
+
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    clearScreen();
+}
+
