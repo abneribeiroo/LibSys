@@ -13,7 +13,7 @@ class LivroEducativo : public Geral
 
 public:
     LivroEducativo();
-    LivroEducativo(string titulo, string autor, int anoPublicacao, string grauEscolaridade);
+    LivroEducativo(int id, string titulo, string autor, int anoPublicacao, string grauEscolaridade);
 
     void mostrarInfo() const override;
     string getCategoria() const override;

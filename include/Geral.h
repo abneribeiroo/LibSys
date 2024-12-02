@@ -8,16 +8,16 @@ using namespace std;
 class Geral
 {
 protected:
+    int id;
     string titulo;
     string autor;
     int anoPublicacao;
-   // string isbn;
     bool disponivel;
     // Data dataPublicacao;
     //  Talvez adicionar mais atributos para as subclasses
 public:
     Geral();
-    Geral(string titulo, string autor, int anoPublicacao);
+    Geral(int id, string titulo, string autor, int anoPublicacao);
 
     void setTitulo(const string &novoTitulo) { titulo = novoTitulo; }
 
@@ -32,6 +32,7 @@ public:
     string getTitulo() const { return titulo; }
     string getAutor() const { return autor; }
     int getAnoPublicacao() const { return anoPublicacao; }
+    int getId() const { return id; }
     bool estaDisponivel() const { return disponivel; }
     void setDisponibilidade(bool disp) { disponivel = disp; }
     // virtual string QuemEs() = 0;

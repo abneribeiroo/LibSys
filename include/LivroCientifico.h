@@ -9,7 +9,7 @@ class LivroCientifico : public Geral
 
 public:
     LivroCientifico();
-    LivroCientifico(string titulo, string autor, int anoPublicacao, string areaPesquisa);
+    LivroCientifico(int id, string titulo, string autor, int anoPublicacao, string areaPesquisa);
     void mostrarInfo() const override;
     string getCategoria() const override
     {
