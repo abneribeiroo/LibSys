@@ -2,10 +2,10 @@
 
 using namespace std;
 
-Geral::Geral() : titulo(""), autor(""), anoPublicacao(0), disponivel(true) {}
+Geral::Geral() :id(0), titulo(""), autor(""), anoPublicacao(0), disponivel(true) {}
 
-Geral::Geral(string titulo, string autor, int anoPublicacao)
-    : titulo(titulo), autor(autor), anoPublicacao(anoPublicacao), disponivel(true) {}
+Geral::Geral(int id, string titulo, string autor, int anoPublicacao)
+    : id(id), titulo(titulo), autor(autor), anoPublicacao(anoPublicacao), disponivel(true) {}
 
 void Geral::mostrarInfo() const
 {
