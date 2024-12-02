@@ -81,3 +81,8 @@ TODO
 - [X] - Colocar o ID no ficheiro dos arquivos
 - [ ] - Criar o arquivo para peessos e requisições
 - [ ] - E fazer as funções para criar requisições e gerir requisições
+- [ ] - Implementar um relatório que mostre os empréstimos categorizados por tipo de
+livro (livros ficcionais, científicos, etc.) e o tipo de leitor que mais os requisita.
+- [ ] - Histórico de Empréstimos de Leitores: Cada tipo de leitor terá seu próprio histórico de empréstimos, e o sistema deve
+exibir o histórico de empréstimos de cada leitor, categorizando os livros por tipo.
+- [ ] - Certificar que todas as funções e ficheiros estão libertanto a memória de forma correta
