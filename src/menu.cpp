@@ -98,12 +98,12 @@ void MenuListarLivros()
             break;
         }
         case 2:
-
+            g_Bib->ListarCategoria();
             break;
         case 3:
             break;
-            // cout << "Digite o ISBN do livro a buscar: ";
-            // cin >> isbn;
+            // cout << "Digite o ID do livro a buscar: ";
+            // cin >> ID;
             // {
             //     Geral* livro = g_Bib->Buscar_Livro(isbn);
             //     if (livro) {
