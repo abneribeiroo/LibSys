@@ -38,6 +38,7 @@ public:
     void Editar_Livro(const std::string &isbn);
     void Listagem_Livros() const;
     void Listagem_Livros_Por_Categoria(const string &categoria) const;
+    void ListarCategoria();
     void Relatorio_Livros_Por_Categoria() const;
 
     vector<LivroCientifico *> BuscarLivrosCientificos(const string &areaPesquisa = "") const;
