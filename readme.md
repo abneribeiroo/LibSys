@@ -76,3 +76,8 @@ Se você estiver usando Windows e não tiver o `make` instalado, siga as instru�
    pacman -S mingw-w64-x86_64-gcc
    ```
 
+TODO
+[] - Atribuir o ID a toos os tipos de Leitores
+[] - Colocar o ID no ficheiro dos arquivos
+[] - Criar o arquivo para peessos e requisições
+[] - E fazer as funções para criar requisições e gerir requisições
