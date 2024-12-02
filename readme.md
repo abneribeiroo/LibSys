@@ -79,5 +79,5 @@ Se você estiver usando Windows e não tiver o `make` instalado, siga as instru�
 TODO
 - [X] - Atribuir o ID a toos os tipos de Leitores
 - [X] - Colocar o ID no ficheiro dos arquivos
-- [] - Criar o arquivo para peessos e requisições
-- [] - E fazer as funções para criar requisições e gerir requisições
+- [ ] - Criar o arquivo para peessos e requisições
+- [ ] - E fazer as funções para criar requisições e gerir requisições
