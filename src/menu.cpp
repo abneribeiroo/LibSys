@@ -39,7 +39,6 @@ void MenuLivros()
         case 1:
         {
             g_Bib->registrarNovoLivro();
-
             break;
         }
         case 2:
@@ -111,9 +110,7 @@ void MenuListarLivros()
 
             break;
         }
-        while (option != 0)
-            ;
-    }
+    } while (option != 0);  // Corrigido a posição do while
 }
 
 void MenuRequisitantes()
