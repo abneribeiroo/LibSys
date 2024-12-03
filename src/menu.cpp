@@ -15,9 +15,6 @@ using namespace std;
 
 extern Biblioteca *g_Bib;
 
-
-
-
 void MenuLivros()
 {
     int option;
@@ -67,7 +64,6 @@ void MenuLivros()
             MenuListarLivros();
             break;
         }
-
         }
     } while (option != 0);
 }
@@ -75,6 +71,7 @@ void MenuLivros()
 void MenuListarLivros()
 {
     int option;
+    string ID;
     do
     {
         // Uteis::clearScreen();
@@ -88,32 +85,35 @@ void MenuListarLivros()
         cout << "\nQual a sua opcao: ";
         cin >> option;
 
-       // Uteis::clearScreen();
+        // Uteis::clearScreen();
         Uteis::clearScreen();
         switch (option)
         {
         case 1:
-        {
             g_Bib->Listagem_Livros();
             break;
-        }
         case 2:
             g_Bib->ListarCategoria();
             break;
         case 3:
-            break;
-            // cout << "Digite o ID do livro a buscar: ";
-            // cin >> ID;
-            // {
-            //     Geral* livro = g_Bib->Buscar_Livro(isbn);
-            //     if (livro) {
-            //         livro->mostrarInfo();
-            //     } else {
-            //         cout << "Livro não encontrado." << endl;
-            //     }
-        }
+            cout << "Digite o ID do livro a buscar: ";
+            cin >> ID;
 
-    } while (option != 0);
+            Geral *livro = g_Bib->Buscar_Livro(ID);
+            if (livro)
+            {
+                livro->mostrarInfo();
+            }
+            else
+            {
+                cout << "Livro não encontrado." << endl;
+            }
+
+            break;
+        }
+        while (option != 0)
+            ;
+    }
 }
 
 void MenuRequisitantes()
@@ -121,7 +121,7 @@ void MenuRequisitantes()
     int option;
     do
     {
-        //Uteis::clearScreen();
+        // Uteis::clearScreen();
 
         cout << "\n | ---------------------REQUISITANTES-----------------------------|";
         cout << "\n | (1) Adicionar requisitantes                                    |";
@@ -133,7 +133,7 @@ void MenuRequisitantes()
         cout << "\nQual a sua opcao: ";
         cin >> option;
 
-       // Uteis::clearScreen();
+        // Uteis::clearScreen();
 
         switch (option)
         {
@@ -150,14 +150,14 @@ void MenuRequisitantes()
         }
 
     } while (option != 0);
-};
+}
 
 void MenuListarRequisitantes()
 {
     int option;
     do
     {
-       // Uteis::clearScreen();
+        // Uteis::clearScreen();
         cout << "\n | ---------------------REQUISITANTES-----------------------------|";
         cout << "\n | (1) Listar requisitantes com livros em atraso                  |";
         cout << "\n | (2) Listar requisitante por categoria                          |";
@@ -166,7 +166,7 @@ void MenuListarRequisitantes()
         cout << "\nQual a sua opcao: ";
         cin >> option;
 
-        //Uteis::clearScreen();
+        // Uteis::clearScreen();
         switch (option)
         {
         case 1:
