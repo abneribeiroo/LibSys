@@ -29,10 +29,10 @@ public:
 
     virtual ~Geral() = default;
     virtual string getCategoria() const = 0;
+    int getId() const {return id;}
     string getTitulo() const { return titulo; }
     string getAutor() const { return autor; }
     int getAnoPublicacao() const { return anoPublicacao; }
-    int getId() const { return id; }
     bool estaDisponivel() const { return disponivel; }
     void setDisponibilidade(bool disp) { disponivel = disp; }
     // virtual string QuemEs() = 0;

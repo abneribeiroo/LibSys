@@ -9,6 +9,7 @@ Geral::Geral(int id, string titulo, string autor, int anoPublicacao)
 
 void Geral::mostrarInfo() const
 {
+    cout << "ID: " << id << endl;
     cout << "Título: " << titulo << endl;
     cout << "Autor: " << autor << endl;
     cout << "Ano de Publicação: " << anoPublicacao << endl;
