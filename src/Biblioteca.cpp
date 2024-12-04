@@ -251,31 +251,29 @@ void Biblioteca::registrarNovoLivro()
     }
 }
 
-bool Biblioteca::Remove_Livro(const string &isbn)
+bool Biblioteca::Remove_Livro(const string &id)
 {
     for (auto &par : Coleccao_LIVROS)
     {
         auto &lista = par.second;
-        auto it = find_if(lista.begin(), lista.end(),
-                          [&isbn](const Geral *livro)
-                          { return livro->getTitulo() == isbn; });
-        if (it != lista.end())
-        {
-            delete *it;
-            lista.erase(it);
-            return true;
+        for(auto it = lista.begin(); it != lista.end(); ++it){
+            if(to_string((*it)->getId()) == id){
+                delete *it;
+                lista.erase(it);
+                return true;
+            }
         }
     }
     return false;
 }
 
-Geral *Biblioteca::Buscar_Livro(const string &isbn) const
+Geral *Biblioteca::Buscar_Livro(const string &id) const
 {
     for (const auto &par : Coleccao_LIVROS)
     {
         for (const auto *livro : par.second)
         {
-            if (livro->getTitulo() == isbn)
+            if (to_string(livro->getId()) == id)
             {
                 return const_cast<Geral *>(livro);
             }
@@ -329,30 +327,35 @@ void Biblioteca::ListarCategoria()
     }
 }
 
-void Biblioteca::Editar_Livro(const string &isbn)
+void Biblioteca::Editar_Livro(const string &id)
 {
-    Geral *livro = Buscar_Livro(isbn);
+    Geral *livro = Buscar_Livro(id);
     if (livro)
     {
         string novoTitulo, novoAutor;
         int novoAno;
 
+        cout << livro->getTitulo() << endl;
         cout << "Novo título (ou Enter para manter): ";
+        cin.ignore();
         getline(cin, novoTitulo);
         if (!novoTitulo.empty())
             livro->setTitulo(novoTitulo);
 
+        cout << livro->getAutor() << endl;
         cout << "Novo autor (ou Enter para manter): ";
         getline(cin, novoAutor);
         if (!novoAutor.empty())
             livro->setAutor(novoAutor);
 
+        cout << livro->getAnoPublicacao() << endl;
         cout << "Novo ano de publicação (ou 0 para manter): ";
         cin >> novoAno;
         if (novoAno != 0)
             livro->setAnoPublicacao(novoAno);
 
         cout << "Livro editado com sucesso!" << endl;
+        livro->mostrarInfo();
     }
     else
     {

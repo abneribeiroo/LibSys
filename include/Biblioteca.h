@@ -33,9 +33,9 @@ public:
 
     bool Add_Livros(Geral *L);
     void registrarNovoLivro();
-    bool Remove_Livro(const string &isbn);
-    Geral *Buscar_Livro(const string &isbn) const;
-    void Editar_Livro(const std::string &isbn);
+    bool Remove_Livro(const string &id);
+    Geral *Buscar_Livro(const string &id) const;
+    void Editar_Livro(const std::string &id);
     void Listagem_Livros() const;
     void Listagem_Livros_Por_Categoria(const string &categoria) const;
     void ListarCategoria();
