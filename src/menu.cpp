@@ -33,7 +33,7 @@ void MenuLivros()
         cin >> option;
 
         // Uteis::clearScreen();
-        string isbn;
+        string id;
         switch (option)
         {
         case 1:
@@ -42,9 +42,9 @@ void MenuLivros()
             break;
         }
         case 2:
-            cout << "Digite o ISBN do livro a remover: ";
-            cin >> isbn;
-            if (g_Bib->Remove_Livro(isbn))
+            cout << "Digite o ID do livro a remover: ";
+            cin >> id;
+            if (g_Bib->Remove_Livro(id))
             {
                 cout << "Livro removido com sucesso!" << endl;
             }
@@ -54,9 +54,9 @@ void MenuLivros()
             }
             break;
         case 3:
-            cout << "Digite o ISBN do livro a editar: ";
-            cin >> isbn;
-            g_Bib->Editar_Livro(isbn);
+            cout << "Digite o ID do livro a editar: ";
+            cin >> id;
+            g_Bib->Editar_Livro(id);
             break;
         case 4:
         {
@@ -100,17 +100,12 @@ void MenuListarLivros()
 
             Geral *livro = g_Bib->Buscar_Livro(ID);
             if (livro)
-            {
                 livro->mostrarInfo();
-            }
             else
-            {
                 cout << "Livro não encontrado." << endl;
-            }
-
             break;
         }
-    } while (option != 0);  // Corrigido a posição do while
+    } while (option != 0);
 }
 
 void MenuRequisitantes()
