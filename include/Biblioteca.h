@@ -2,7 +2,7 @@
 #define BIBLIOTECA_H
 
 #include <iostream>
-using namespace std;
+#include <queue>
 #include <list>
 #include <map>
 #include <vector>
@@ -17,6 +17,7 @@ using namespace std;
 #include "LeitorComum.h"
 #include "Estudante.h"
 #include "Senior.h"
+#include "Emprestimo.h"
 using namespace std;
 
 class Biblioteca
@@ -24,6 +25,11 @@ class Biblioteca
 private:
     map<string, list<Geral *>> Coleccao_LIVROS;
     map<string, list<Pessoa *>> Coleccao_LEITORES;
+
+    vector<Emprestimo> emprestimos;
+    map<Geral *, std::queue<Pessoa *>> reservas;
+    int highestId;
+    int getNextId();
 
     void getCommonBookInfo(std::string &titulo, std::string &autor, int &anoPublicacao);
 
@@ -59,7 +65,17 @@ public:
     void Editar_Leitor(int id);
     void Listagem_Leitores() const;
     void registarLeitor();
-    void testarFuncoes();
+
+    // bool realizarEmprestimo(Geral *livro, Pessoa *leitor);
+    // bool realizarDevolucao(Geral *livro, Pessoa *leitor);
+    // bool fazerReserva(Geral *livro, Pessoa *leitor);
+    // void processarReservas();
+    // void listarEmprestimosAtrasados() const;
+    // void listarReservas() const;
+
+    // void gerarRelatorioMultasPendentes() const;
+    // bool salvarDados(const std::string &filename) const;
+    // bool carregarDados(const std::string &filename);
 };
 
 #endif // BIBLIOTECA_H

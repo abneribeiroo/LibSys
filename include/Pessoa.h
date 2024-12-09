@@ -23,6 +23,7 @@ class Pessoa
         virtual string getCategoria() const = 0;
         string getNome() const { return nome; }
         int getId() const { return id; }
+        int getIdade() const { return idade; }
         void setNome(const string &novoNome) { nome = novoNome; }
 
         void setIdade(const int &novaIdade) { idade = novaIdade; }

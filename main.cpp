@@ -49,7 +49,7 @@ int main()
             break;
         }
         case 0:
-            //g_Bib->SaveToFile("biblioteca.txt");
+            g_Bib->SaveToFile("biblioteca.txt");
             cout << "\n\n ***** Salvando os dados *****\n";
             cout << " ***** Saindo do programa *****\n";
             break;
