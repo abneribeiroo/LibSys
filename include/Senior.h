@@ -8,16 +8,19 @@ using namespace std;
 class Senior : public Pessoa
 {
 private:
-    /* data */
+    int Desconto; // em percentagem ex:20 para 20%
 public:
+
     Senior();
-    Senior(string nome, int idade, int id) : Pessoa(nome, idade, id) {};
+    Senior(string nome, Data nascData, int id, Data regData, int Desconto) : Pessoa(nome, nascData, id, regData), Desconto(Desconto) {};
 
     void mostrarInfo() const {
         Pessoa::mostrarInfo();
+        cout << "Desconto: " << Desconto << "%" << endl;
         cout << "Tipo de Leitor: Senior" << endl;
     }
     virtual ~Senior();
+    int getDesconto() const { return Desconto; }
     string getCategoria() const override
     {
         return "Senior";

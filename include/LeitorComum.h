@@ -8,7 +8,7 @@ class LeitorComum : public Pessoa
 {
     public:
         LeitorComum();
-        LeitorComum(string nome, int idade, int id) : Pessoa(nome, idade, id) {};
+        LeitorComum(string nome, Data nascData, int id, Data regData) : Pessoa(nome, nascData, id, regData) {};
 
         void mostrarInfo() const {
             Pessoa::mostrarInfo();

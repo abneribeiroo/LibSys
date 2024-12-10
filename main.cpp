@@ -12,6 +12,7 @@ int main()
 
     g_Bib = new Biblioteca();
     g_Bib->LoadFile("biblioteca.txt");
+    g_Bib->LoadFile_Leitores("leitores.txt");
 
     int option;
     do

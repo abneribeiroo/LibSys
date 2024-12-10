@@ -2,31 +2,38 @@
 #define PESSOA_H
 #include <iostream>
 #include <string>
+#include "Data.h"
 using namespace std;
 
 class Pessoa
 {
     protected:
     string nome;
-    int idade;
+    Data nascData;
     int id;
+    Data regData;
     public:
         Pessoa();
-        Pessoa(string nome, int idade, int id) : nome(nome), idade(idade), id(id) {};
+        Pessoa(string nome, Data nascData, int id, Data regData) : nome(nome), nascData(nascData), id(id), regData(regData) {};
 
         virtual void mostrarInfo() const {
             cout << "Nome: " << nome << endl;
-            cout << "Idade: " << idade << endl;
+            cout << "Data de Nascimento: ";
+            nascData.mostrarInfo();
             cout << "Id: " << id << endl;
+            cout << "Data de Registro: ";
+            regData.mostrarInfo();
         }
         virtual ~Pessoa();
+
         virtual string getCategoria() const = 0;
         string getNome() const { return nome; }
         int getId() const { return id; }
-        int getIdade() const { return idade; }
+        Data getnascData() const { return nascData; }
+        Data getregData() const { return regData; }
         void setNome(const string &novoNome) { nome = novoNome; }
 
-        void setIdade(const int &novaIdade) { idade = novaIdade; }
+        void setNasc(const Data& novaData) { nascData = novaData; }
 
     protected:
 

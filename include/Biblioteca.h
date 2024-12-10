@@ -58,13 +58,16 @@ public:
     void RelatorioCategoria(string cat);
     void Prorrogacao_Emprestimos();
     void Sistema_Notificacoes_Atraso();
-    bool Add_Leitores();
+
     bool Add_Leitor(Pessoa *P);
     bool Remove_Leitor(int id);
     Pessoa *Buscar_Leitor(int id) const;
     void Editar_Leitor(int id);
     void Listagem_Leitores() const;
     void registarLeitor();
+    int gerarID_leitor();
+    bool SaveToFile_Leitores(const string &filename);
+    bool LoadFile_Leitores(const string &filename);
 
     // bool realizarEmprestimo(Geral *livro, Pessoa *leitor);
     // bool realizarDevolucao(Geral *livro, Pessoa *leitor);
