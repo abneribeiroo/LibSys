@@ -73,7 +73,6 @@ void MenuListarLivros()
     string ID;
     do
     {
-        // Uteis::clearScreen();
 
         cout << "\n #-------------------------------------------------------------#";
         cout << "\n | (1) Listar livros por categoria                             |";
