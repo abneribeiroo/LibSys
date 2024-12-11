@@ -42,11 +42,11 @@ public:
     void registrarNovoLivro();
     bool Remove_Livro(const string &id);
     Geral *Buscar_Livro(const string &id) const;
-    void Editar_Livro(const std::string &id);
+    void Editar_Livro(const string &id);
     void Listagem_Livros() const;
     void ListarLivros_Por_Categoria(const string &categoria) const;
     void ListarCategoria();
-    void Relatorio_Livros_Por_Categoria() const;
+    //void Relatorio_Livros_Por_Categoria() const;
 
     bool SaveToFile_Livros(const string &filename);
     bool LoadFile_Livros(const string &filename);
