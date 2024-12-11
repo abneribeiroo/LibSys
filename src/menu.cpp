@@ -84,7 +84,6 @@ void MenuListarLivros()
         cout << "\nQual a sua opcao: ";
         cin >> option;
 
-        // Uteis::clearScreen();
         Uteis::clearScreen();
         switch (option)
         {
