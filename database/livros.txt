@@ -1,13 +1,10 @@
-5;Jornal;Folha de São Paulo;Equipe Editorial;2023;15/05/2023;Folha
-10;Jornal;The New York Times;NYT Editorial;2023;16/05/2023;NYT
-12;Jornal;Le Monde;Redação Le Monde;2023;12/05/2023;Le Monde
-1;LivroCientifico;A Breve História do Tempo;Stephen Hawking;1988;Física
-6;LivroCientifico;O Gene Egoísta;Richard Dawkins;1976;Biologia
-3;LivroEducativo;Matemática Fundamental;Maria Silva;2020;Ensino Médio
-8;LivroEducativo;História do Brasil;João Santos;2018;Ensino Fundamental
-13;LivroEducativo;Aprendendo com Geometria;Carlos Eduardo Ferreira;2019;Ensino Fundamental
-2;LivroFiccao;1984;George Orwell;1949;Distopia
-7;LivroFiccao;Cem Anos de Solidão;Gabriel García Márquez;1967;Realismo Mágico
-4;Revista;National Geographic;Vários Autores;2023;789
-9;Revista;Superinteressante;Editora Abril;2023;432
-11;Revista;Time;Abner;2027;786
+5;Jornal;Folha de São Paulo;Equipe Editorial;1/1/2023;Folha
+10;Jornal;The New York Times;NYT Editorial;1/1/2023;NYT
+1;LivroCientifico;A Breve História do Tempo;Stephen Hawking;1/1/1988;Física
+6;LivroCientifico;O Gene Egoísta;Richard Dawkins;1/1/1976;Biologia
+3;LivroEducativo;Matemática Fundamental;Maria Silva;1/1/2020;Ensino Médio
+8;LivroEducativo;História do Brasil;João Santos;1/1/2018;Ensino Fundamental
+2;LivroFiccao;1984;George Orwell;1/1/1949;Distopia
+7;LivroFiccao;Cem Anos de Solidão;Gabriel García Márquez;1/1/1967;Realismo Mágico
+4;Revista;National Geographic;Vários Autores;1/1/2023;789
+9;Revista;Superinteressante;Editora Abril;1/1/2023;432

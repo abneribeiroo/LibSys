@@ -10,7 +10,8 @@ class Jornal : public Geral
 
 public:
     Jornal( );
-    Jornal(int id, string titulo, string autor, Data dataPublicacao, string editor);
+    Jornal(int id, string titulo, string autor, Data dataPublicacao, string editor): Geral(id,titulo, autor, dataPublicacao), editor(editor) {};
+ 
 
     void mostrarInfo() const
     {

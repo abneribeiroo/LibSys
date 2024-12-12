@@ -10,7 +10,7 @@ class LivroFiccao : public Geral
 
 public:
     LivroFiccao();
-    LivroFiccao(int id, string titulo, string autor, Data dataPublicacao, string genero);
+    LivroFiccao(int id, string titulo, string autor, Data dataPublicacao, string genero): Geral(id,titulo, autor, dataPublicacao), genero(genero) {};
     void mostrarInfo() const{
         Geral::mostrarInfo();
         cout << "Género: " << genero << endl;

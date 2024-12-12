@@ -25,13 +25,13 @@ class Biblioteca
 private:
     map<string, list<Geral *>> Coleccao_LIVROS;
     map<string, list<Pessoa *>> Coleccao_LEITORES;
+    map<string, list<Emprestimo*>> Coleccao_Emprestimo;
 
-    vector<Emprestimo> emprestimos;
-    map<Geral *, std::queue<Pessoa *>> reservas;
+    // map<Geral *, std::queue<Pessoa *>> reservas;
     int highestId;
     int getNextId();
 
-    void getCommonBookInfo(std::string &titulo, std::string &autor, Data dataPublicacao);
+    void getCommonBookInfo(std::string &titulo, std::string &autor, Data &dataPublicacao);
 
 public:
     Biblioteca();
@@ -49,7 +49,10 @@ public:
     //void Relatorio_Livros_Por_Categoria() const;
 
     bool SaveToFile_Livros(const string &filename);
-    // bool LoadFile_Livros(const string &filename);
+    bool LoadFile_Livros(const string &filename);
+
+    bool salvarDadosEmprestimos(const std::string& filename) const;
+    // bool loadEmprestimos(const std::string& filename);
 
     void RelatorioCategoria(string cat); // TODO: Implementar
     void Prorrogacao_Emprestimos();      // TODO: Implementar
@@ -65,18 +68,14 @@ public:
     void registarLeitor();
     int gerarID_leitor();
     bool SaveToFile_Livros_Leitores(const string &filename);
-    // bool LoadFile_Livros_Leitores(const string &filename);
+    bool LoadFile_Livros_Leitores(const string &filename);
+    bool compararDatas(const Data& data1, const Data& data2); // se a data 2 for maior que a data 1 volta true, se não volta false
+
 
     bool realizarEmprestimo(Geral *livro, Pessoa *leitor);
-    // bool realizarDevolucao(Geral *livro, Pessoa *leitor);
-    // bool fazerReserva(Geral *livro, Pessoa *leitor);
-    // void processarReservas();
-    // void listarEmprestimosAtrasados() const;
-    // void listarReservas() const;
-
-    // void gerarRelatorioMultasPendentes() const;
-    // bool salvarDados(const std::string &filename) const;
-    // bool carregarDados(const std::string &filename);
+    bool salvarEmprestimos(const string& filename) const;
+    void ListarEmprestimos();
+    bool LoadFile_Emprestimos(const string &filename);
 };
 
 #endif // BIBLIOTECA_H

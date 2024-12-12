@@ -10,8 +10,9 @@ int main()
     cout << "\t\tBiblioteca-ESTGV!\n";
 
     g_Bib = new Biblioteca();
-    // g_Bib->LoadFile_Livros("./database/livros.txt");
+    g_Bib->LoadFile_Livros("./database/livros.txt");
     g_Bib->LoadFile_Livros_Leitores("./database/leitores.txt");
+    g_Bib->LoadFile_Emprestimos("./database/emprestimos.txt");
 
     int option;
     do
@@ -50,6 +51,7 @@ int main()
         }
         case 0:
             g_Bib->SaveToFile_Livros("./database/livros.txt");
+            g_Bib->salvarEmprestimos("./database/emprestimos.txt");
             cout << "\n\n ***** Salvando os dados *****\n";
             cout << " ***** Saindo do programa *****\n";
             break;

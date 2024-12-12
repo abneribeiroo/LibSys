@@ -69,7 +69,7 @@ bool Biblioteca::SaveToFile_Livros(const string &filename)
             else if (livro->getCategoria() == "Jornal")
             {
                 const Jornal *j = dynamic_cast<const Jornal *>(livro);
-                file << j->getDataPublicacao() << ";" << j->getEditor();
+                file << j->getEditor();
             }
 
             file << endl;
@@ -81,82 +81,83 @@ bool Biblioteca::SaveToFile_Livros(const string &filename)
     return true;
 }
 
-// bool Biblioteca::LoadFile_Livros(const string &filename)
-// {
-//     ifstream file(filename);
-//     if (!file.is_open())
-//     {
-//         cout << "Erro ao abrir o arquivo para leitura." << endl;
-//         return false;
-//     }
+bool Biblioteca::LoadFile_Livros(const string &filename)
+{
+    ifstream file(filename);
+    if (!file.is_open())
+    {
+        cout << "Erro ao abrir o arquivo para leitura." << endl;
+        return false;
+    }
 
-//     string line;
-//     while (getline(file, line))
-//     {
-//         stringstream ss(line);
+    string line;
+    while (getline(file, line))
+    {
+        stringstream ss(line);
 
-//         string categoria, titulo, autor, anoPublicacaoStr, atributoEspecifico, editor;
-//         int id;
+        string categoria, titulo, autor, dataStr, atributoEspecifico, editor;
+        int id;
+        Data dataPublicacao;
 
-//         string idStr;
-//         if (!getline(ss, idStr, ';'))
-//         {
-//             cout << "Erro: Formato de linha inválido." << endl;
-//             continue;
-//         }
-//         try
-//         {
-//             id = stoi(idStr);
-//             highestId = max(highestId, id);
-//         }
-//         catch (const invalid_argument &e)
-//         {
-//             cout << "Erro: ID inválido - " << idStr << endl;
-//             continue;
-//         }
+        string idStr;
+        if (!getline(ss, idStr, ';'))
+        {
+            cout << "Erro: Formato de linha inválido." << endl;
+            continue;
+        }
+        try
+        {
+            id = stoi(idStr);
+            highestId = max(highestId, id);
+        }
+        catch (const invalid_argument &e)
+        {
+            cout << "Erro: ID inválido - " << idStr << endl;
+            continue;
+        }
 
-//         getline(ss, categoria, ';');
-//         getline(ss, titulo, ';');
-//         getline(ss, autor, ';');
-//         getline(ss, anoPublicacaoStr, ';');
-//         getline(ss, atributoEspecifico, ';');
+        getline(ss, categoria, ';');
+        getline(ss, titulo, ';');
+        getline(ss, autor, ';');
+        getline(ss, dataStr, ';');
+        getline(ss, atributoEspecifico, ';');
 
-//         int anoPublicacao = stoi(anoPublicacaoStr);
+        dataPublicacao = dataPublicacao.lerString(dataStr);
 
-//         Geral *livro = nullptr;
+        Geral *livro = nullptr;
 
-//         if (categoria == "LivroCientifico")
-//         {
-//             livro = new LivroCientifico(id, titulo, autor, anoPublicacao, atributoEspecifico);
-//         }
-//         else if (categoria == "LivroFiccao")
-//         {
-//             livro = new LivroFiccao(id, titulo, autor, anoPublicacao, atributoEspecifico);
-//         }
-//         else if (categoria == "LivroEducativo")
-//         {
-//             livro = new LivroEducativo(id, titulo, autor, anoPublicacao, atributoEspecifico);
-//         }
-//         else if (categoria == "Revista")
-//         {
-//             livro = new Revista(id, titulo, autor, anoPublicacao, stoi(atributoEspecifico));
-//         }
-//         else if (categoria == "Jornal")
-//         {
-//             getline(ss, editor, ';');
-//             livro = new Jornal(id, titulo, autor, anoPublicacao, atributoEspecifico, editor);
-//         }
+        if (categoria == "LivroCientifico")
+        {
+            livro = new LivroCientifico(id, titulo, autor, dataPublicacao, atributoEspecifico);
+        }
+        else if (categoria == "LivroFiccao")
+        {
+            livro = new LivroFiccao(id, titulo, autor, dataPublicacao, atributoEspecifico);
+        }
+        else if (categoria == "LivroEducativo")
+        {
+            livro = new LivroEducativo(id, titulo, autor, dataPublicacao, atributoEspecifico);
+        }
+        else if (categoria == "Revista")
+        {
+            livro = new Revista(id, titulo, autor, dataPublicacao, stoi(atributoEspecifico));
+        }
+        else if (categoria == "Jornal")
+        {
 
-//         if (livro)
-//         {
-//             Add_Livros(livro);
-//         }
-//     }
+            livro = new Jornal(id, titulo, autor, dataPublicacao, atributoEspecifico);
+        }
 
-//     file.close();
-//     cout << "Dados carregados com sucesso do arquivo " << filename << endl;
-//     return true;
-// }
+        if (livro)
+        {
+            Add_Livros(livro);
+        }
+    }
+
+    file.close();
+    cout << "Dados carregados com sucesso do arquivo " << filename << endl;
+    return true;
+}
 
 void Biblioteca::RelatorioCategoria(string cat)
 {
@@ -183,19 +184,21 @@ bool Biblioteca::Add_Livros(Geral *L)
     return true;
 }
 
-void Biblioteca::getCommonBookInfo(string &titulo, string &autor, Data dataPublicacao)
+void Biblioteca::getCommonBookInfo(string &titulo, string &autor, Data &dataPublicacao)
 {
     cout << "Digite o título: ";
     getline(cin >> ws, titulo);
     cout << "Digite o autor: ";
     getline(cin >> ws, autor);
-while(!dataPublicacao.eValida()){
-    cout << "Digite o data de publicação: ";
-    dataPublicacao = dataPublicacao.lerData();
-    if (!dataPublicacao.eValida()){
-        cout << "Data Invalida!";
+    while (!dataPublicacao.eValida())
+    {
+        cout << "Digite o data de publicação: ";
+        dataPublicacao = dataPublicacao.lerData();
+        if (!dataPublicacao.eValida())
+        {
+            cout << "Data Invalida!";
+        }
     }
-}
 
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
@@ -206,7 +209,6 @@ void Biblioteca::registrarNovoLivro()
     string titulo, autor, areaPesquisa, editor, grauEscolaridade;
     int numeroEdicao;
     Data dataPublicacao;
-
 
     cout << "Selecione a categoria que deseja listar:" << endl;
     cout << "1. Livro Científico" << endl;
@@ -420,7 +422,6 @@ void Biblioteca::ListarLivros_Por_Categoria(const string &categoria) const
     }
 }
 
-
 bool Biblioteca::Add_Leitor(Pessoa *P)
 {
     if (P == nullptr)
@@ -508,10 +509,10 @@ void Biblioteca::registarLeitor()
 
 bool Biblioteca::Remove_Leitor(int id)
 {
-   for (auto &par : Coleccao_LEITORES)
-   {
-    auto &lista = par.second;
-    for (auto it = lista.begin(); it != lista.end(); ++it)
+    for (auto &par : Coleccao_LEITORES)
+    {
+        auto &lista = par.second;
+        for (auto it = lista.begin(); it != lista.end(); ++it)
         {
             if ((*it)->getId() == id)
             {
@@ -520,7 +521,7 @@ bool Biblioteca::Remove_Leitor(int id)
                 return true;
             }
         }
-   }
+    }
     return false;
 }
 
@@ -544,7 +545,7 @@ void Biblioteca::Editar_Leitor(int id) const
     Pessoa *pessoa = Buscar_Leitor(id);
     if (pessoa)
     {
-        string novoNome, tmpData ;
+        string novoNome, tmpData;
         Data novaData;
 
         cout << "Novo Nome (ou Enter para manter): ";
@@ -563,7 +564,6 @@ void Biblioteca::Editar_Leitor(int id) const
         }
 
         cout << "Pessoa editada com sucesso!" << endl;
-
     }
     else
     {
@@ -643,240 +643,206 @@ bool Biblioteca::SaveToFile_Livros_Leitores(const string &filename)
     return true;
 }
 
-// bool Biblioteca::LoadFile_Livros_Leitores(const string &filename)
-// {
-//     ifstream file(filename);
-//     if (!file.is_open())
-//     {
-//         cout << "Erro ao abrir o arquivo para leitura." << endl;
-//         return false;
-//     }
+bool Biblioteca::LoadFile_Livros_Leitores(const string &filename)
+{
+    ifstream file(filename);
+    if (!file.is_open())
+    {
+        cout << "Erro ao abrir o arquivo para leitura." << endl;
+        return false;
+    }
 
-//     string line;
-//     while (getline(file, line))
-//     {
-//         stringstream ss(line);
-//         string categoria, nome, nascDataStr, idStr, regDataStr, atributoEspecifico;
-//         int id;
-//         getline(ss, idStr, ';');
-//         id = stoi(idStr);
-//         getline(ss, categoria, ';');
-//         getline(ss, nome, ';');
-//         getline(ss, nascDataStr, ';');
-//         getline(ss, regDataStr, ';');
-//         getline(ss, atributoEspecifico, ';');
+    string line;
+    while (getline(file, line))
+    {
+        stringstream ss(line);
+        string categoria, nome, nascDataStr, idStr, regDataStr, atributoEspecifico;
+        int id;
+        getline(ss, idStr, ';');
+        id = stoi(idStr);
+        getline(ss, categoria, ';');
+        getline(ss, nome, ';');
+        getline(ss, nascDataStr, ';');
+        getline(ss, regDataStr, ';');
+        getline(ss, atributoEspecifico, ';');
 
-//         Data nascData = nascData.lerString(nascDataStr);
-//         Data regData = regData.lerString(regDataStr);
+        Data nascData = nascData.lerString(nascDataStr);
+        Data regData = regData.lerString(regDataStr);
 
-//         Pessoa *leitor = nullptr;
+        Pessoa *leitor = nullptr;
 
-//         if (categoria == "LeitorComum")
-//         {
-//             leitor = new LeitorComum(nome, nascData, id, regData);
-//         }
-//         else if (categoria == "Estudante")
-//         {
-//             leitor = new Estudante(nome, nascData, id, regData, atributoEspecifico);
-//         }
-//         else if (categoria == "Professor")
-//         {
-//             leitor = new Professor(nome, nascData, id, regData, atributoEspecifico);
-//         }
-//         else if (categoria == "Senior")
-//         {
-//             leitor = new Senior(nome, nascData, id, regData, stoi(atributoEspecifico));
-//         }
+        if (categoria == "LeitorComum")
+        {
+            leitor = new LeitorComum(nome, nascData, id, regData);
+        }
+        else if (categoria == "Estudante")
+        {
+            leitor = new Estudante(nome, nascData, id, regData, atributoEspecifico);
+        }
+        else if (categoria == "Professor")
+        {
+            leitor = new Professor(nome, nascData, id, regData, atributoEspecifico);
+        }
+        else if (categoria == "Senior")
+        {
+            leitor = new Senior(nome, nascData, id, regData, stoi(atributoEspecifico));
+        }
 
-//         if (leitor && nascData.eValida() && regData.eValida())
-//         {
-//             Add_Leitor(leitor);
-//         }
-//         else
-//         {
-//             cout << "Erro ao carregar leitor (erro de formato da data) " << nome << endl;
-//         }
-//     }
-//     cout << "Dados carregados com sucesso do arquivo " << filename << endl;
-//     return true;
-// }
+        if (leitor && nascData.eValida() && regData.eValida())
+        {
+            Add_Leitor(leitor);
+        }
+        else
+        {
+            cout << "Erro ao carregar leitor (erro de formato da data) " << nome << endl;
+        }
+    }
+    cout << "Dados carregados com sucesso do arquivo " << filename << endl;
+    return true;
+}
 
-// bool Biblioteca::realizarEmprestimo(Geral *livro, Pessoa *leitor) {
-//     if (!livro->estaDisponivel()) {
-//         cout << "Livro não está disponível para empréstimo." << endl;
-//         return false;
-//     }
+bool Biblioteca::realizarEmprestimo(Geral *livro, Pessoa *leitor)
+{
+    if (!livro->estaDisponivel())
+    {
+        cout << "Livro não está disponível para empréstimo." << endl;
+        return false;
+    }
 
-//         // Verificar se o leitor já atingiu o limite de empréstimos
-//     int limiteEmprestimos = 3; // Padrão para LeitorComum
-//     if (dynamic_cast<Estudante _>(leitor) || dynamic_cast<Professor _>(leitor))
-//         limiteEmprestimos = 5;
-//     int emprestimosAtuais = count_if(emprestimos.begin(), emprestimos.end(),
-//     [leitor](const Emprestimo &e)
-//     { return e.getLeitor() == leitor && !e.estaDevolvido(); });
+    // Verificar se o leitor já atingiu o limite de empréstimos
+    int limiteEmprestimos = 3; // Padrão para LeitorComum
+    if (leitor->getCategoria() == "Estudante" || leitor->getCategoria() == "Professor")
+    {
+        limiteEmprestimos = 5;
+    }
 
-//     if (emprestimosAtuais >= limiteEmprestimos)
-//     {
-//         cout << "Leitor já atingiu o limite de empréstimos." << endl;
-//         return false;
-//     }
+    int emprestimosAtuais = 0;
 
-//     emprestimos.emplace_back(livro, leitor);
-//     livro->setDisponibilidade(false);
-//     cout << "Empréstimo realizado com sucesso." << endl;
-//     return true;
-// }
+    for (const auto &[_, emprestimosDoTipo] : Coleccao_Emprestimo)
+    {
+        for (const auto &e : emprestimosDoTipo)
+        {
+            if (e->getLeitor() == leitor && !e->estaDevolvido())
+            {
+                emprestimosAtuais++;
+            }
+        }
+        if (emprestimosAtuais >= limiteEmprestimos)
+        {
+            cout << "Leitor já atingiu o limite de empréstimos." << endl;
+            return false;
+        }
+    }
+    int id = 0;
 
-// bool Biblioteca::realizarDevolucao(Geral *livro, Pessoa *leitor)
-// {
-// auto it = find_if(emprestimos.begin(), emprestimos.end(),
-// [livro, leitor](const Emprestimo &e)
-// {
-// return e.getLivro() == livro && e.getLeitor() == leitor && !e.estaDevolvido();
-// });
+    // Criar novo empréstimo e adicioná-lo ao map
+    Emprestimo *novoEmprestimo = new Emprestimo(id, livro, leitor);
+    novoEmprestimo->setDevolvido(false);
+    livro->setDisponibilidade(0);
+    Data novaData;
+    novaData = novaData.dataAtual();
+    novoEmprestimo->setDataEmprestimo(novaData);
 
-// if (it == emprestimos.end())
-// {
-// cout << "Empréstimo não encontrado." << endl;
-// return false;
-// }
+    string categoria = livro->getCategoria();
+    Coleccao_Emprestimo[categoria].push_back(novoEmprestimo);
 
-// it->realizarDevolucao();
-// double multa = it->getMulta();
-// if (multa > 0)
-// {
-// cout << "Multa a pagar: R$ " << multa << endl;
-// }
+    livro->setDisponibilidade(false);
+    cout << "Empréstimo realizado com sucesso." << endl;
+    return true;
+}
 
-// cout << "Devolução realizada com sucesso." << endl;
-// return true;
-// }
+bool Biblioteca::LoadFile_Emprestimos(const string &filename)
+{
+    ifstream file(filename);
+    if (!file.is_open())
+    {
+        cout << "Erro ao abrir o arquivo para leitura." << endl;
+        return false;
+    }
 
-// bool Biblioteca::fazerReserva(Geral *livro, Pessoa *leitor)
-// {
-// if (livro->estaDisponivel())
-// {
-// cout << "O livro está disponível para empréstimo. Não é necessário fazer reserva." << endl;
-// return false;
-// }
+    string line;
+    while (getline(file, line))
+    {
+        stringstream ss(line);
+        string categoria, livroIdStr, leitorIdStr, dataEmprestimoStr, dataDevolucaoStr, devolvidoStr, multaStr;
+        int livroId, leitorId;
+        bool devolvido;
+        float multa;
 
-// auto &filaReserva = reservas[livro];
+        getline(ss, categoria, ';');
+        getline(ss, livroIdStr, ';');
+        getline(ss, leitorIdStr, ';');
+        getline(ss, dataEmprestimoStr, ';');
+        getline(ss, dataDevolucaoStr, ';');
+        getline(ss, devolvidoStr, ';');
+        getline(ss, multaStr, ';');
 
-// // Check if the reader is already in the queue
-// auto it = find_if(filaReserva.\_Get_container().begin(), filaReserva.\_Get_container().end(),
-// [leitor](const Pessoa \*p)
-// { return p->getId() == leitor->getId(); });
+        livroId = stoi(livroIdStr);
+        leitorId = stoi(leitorIdStr);
+        devolvido = devolvidoStr == "1";
+        multa = stof(multaStr);
 
-// if (it != filaReserva.\_Get_container().end())
-// {
-// cout << "Este leitor já tem uma reserva para este livro." << endl;
-// return false;
-// }
+        Geral *livro = Buscar_Livro(to_string(livroId));
+        Pessoa *leitor = Buscar_Leitor(leitorId);
 
-// filaReserva.push(leitor);
-// cout << "Reserva realizada com sucesso para o livro: " << livro->getTitulo() << endl;
-// return true;
-// }
+        if (livro && leitor)
+        {
+            Emprestimo *emprestimo = new Emprestimo(getNextId(), livro, leitor);
+            emprestimo->setDataEmprestimo(Data().lerString(dataEmprestimoStr));
+            emprestimo->setDataDevolucao(Data().lerString(dataDevolucaoStr));
+            emprestimo->setDevolvido(devolvido);
+            emprestimo->setMulta(multa);
 
-// void Biblioteca::gerarRelatorioMultasPendentes() const
-// {
-// map<string, double> multasPorTipo;
+            Coleccao_Emprestimo[categoria].push_back(emprestimo);
+        }
+        else
+        {
+            return false;
+        }
+    }
 
-// for (const auto &emprestimo : emprestimos)
-// {
-// if (emprestimo.estahAtrasado() && !emprestimo.estaDevolvido())
-// {
-// Pessoa \*leitor = emprestimo.getLeitor();
-// double multa = emprestimo.calcularMulta();
-// string tipoLeitor = leitor->getCategoria();
+    return true;
+}
 
-// multasPorTipo[tipoLeitor] += multa;
+void Biblioteca::ListarEmprestimos()
+{
+    for (const auto &par : Coleccao_Emprestimo)
+    {
+        cout << "Categoria: " << par.first << endl;
+        for (const auto &emprestimo : par.second)
+        {
+            emprestimo->mostrarInfo();
+            cout << "--------------------" << endl;
+        }
+    }
+}
 
-// cout << "Leitor: " << leitor->getNome()
-// << " (ID: " << leitor->getId() << ")"
-// << ", Tipo: " << tipoLeitor
-// << ", Livro: " << emprestimo.getLivro()->getTitulo()
-// << ", Multa: R$ " << fixed << setprecision(2) << multa << endl;
-// }
-// }
 
-// cout << "\nResumo de multas por tipo de leitor:" << endl;
-// for (const auto &[tipo, total] : multasPorTipo)
-// {
-// cout << tipo << ": R$ " << fixed << setprecision(2) << total << endl;
-// }
-// }
+bool Biblioteca::salvarEmprestimos(const string &filename) const
+{
+    ofstream file(filename);
+    if (!file.is_open())
+    {
+        cerr << "Erro ao abrir o arquivo para escrita." << endl;
+        return false;
+    }
 
-// bool Biblioteca::salvarDados(const string &filename) const
-// {
-// // ... (previous code remains unchanged)
+    for (const auto &[categoria, emprestimos] : Coleccao_Emprestimo)
+    {
+        for (const auto &emprestimo : emprestimos)
+        {
 
-// // Save readers
-// file << "LEITORES" << endl;
-// for (const auto &[categoria, leitores] : Coleccao_LEITORES)
-// {
-// for (const auto \*leitor : leitores)
-// {
-// file << leitor->getId() << ";"
-// << leitor->getCategoria() << ";"
-// << leitor->getNome() << ";"
-// << leitor->getIdade() << endl;
-// }
-// }
+            file << emprestimo->getLivro()->getCategoria() << ";"
+                 << emprestimo->getLivro()->getId() << ";"
+                 << emprestimo->getLeitor()->getId() << ";"
+                 << emprestimo->getDataEmprestimo() << ";"
+                 << emprestimo->getDataDevolucao() << ";"
+                 << emprestimo->estaDevolvido() << ";"
+                 << emprestimo->getMulta() << endl;
+        }
+    }
 
-// // ... (rest of the function remains unchanged)
-// }
-
-// bool Biblioteca::carregarDados(const string &filename)
-// {
-// // ... (previous code remains unchanged)
-
-// else if (currentSection == "EMPRESTIMOS")
-// {
-// // ... (previous code remains unchanged)
-
-// if (livro && leitor)
-// {
-// Emprestimo emprestimo(livro, leitor);
-// emprestimo.setDataEmprestimo(dataEmprestimo);
-// emprestimo.setDataDevolucao(dataDevolucao);
-// emprestimo.setDevolvido(devolvido);
-// emprestimo.setMulta(multa);
-// emprestimos.push_back(emprestimo);
-// }
-// }
-// else if (currentSection == "RESERVAS")
-// {
-// vector<string> tokens;
-// while (getline(iss, token, ';'))
-// {
-// tokens.push_back(token);
-// }
-
-// if (tokens.size() < 2)
-// continue;
-
-// int livroId = stoi(tokens[0]);
-// Geral \*livro = Buscar_Livro(to_string(livroId));
-
-// if (livro)
-// {
-// istringstream leitorIds(tokens[1]);
-// string leitorIdStr;
-// while (getline(leitorIds, leitorIdStr, ','))
-// {
-// int leitorId = stoi(leitorIdStr);
-// Pessoa \*leitor = Buscar_Leitor(leitorId);
-// if (leitor)
-// {
-// reservas[livro].push(leitor);
-// }
-// }
-// }
-// }
-// }
-
-// file.close();
-// cout << "Dados carregados com sucesso do arquivo " << filename << endl;
-// return true;
-// }
+    file.close();
+    cout << "Dados salvos com sucesso no arquivo " << filename << endl;
+    return true;
+}

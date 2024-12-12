@@ -12,8 +12,8 @@ protected:
     string titulo;
     string autor;
 
-    bool disponivel;
     Data dataPublicacao;
+    bool disponivel;
     //  Talvez adicionar mais atributos para as subclasses
 public:
     Geral();
@@ -36,24 +36,13 @@ public:
     bool estaDisponivel() const { return disponivel; }
     void setDisponibilidade(bool disp) { disponivel = disp; }
     // virtual string QuemEs() = 0;
+
+    protected:
+    private:
+
 };
 
-class LivroEducativo : public Geral
-{
-private:
-    string grauEscolaridade;
 
-public:
-    LivroEducativo() : Geral(0, "", "", Data()), grauEscolaridade("") {}
-};
 
-class LivroFiccao : public Geral
-{
-private:
-    string genero;
-
-public:
-    LivroFiccao() : Geral(0, "", "", Data()), genero("") {}
-};
 
 #endif // GERAL_H

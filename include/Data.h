@@ -4,7 +4,8 @@
 #include <string>
 using namespace std;
 
-class Data {
+class Data
+{
 public:
     Data();
     Data(int dia, int mes, int ano);
@@ -14,8 +15,9 @@ public:
     bool eValida() const;
     Data lerData();
     Data dataAtual();
-    Data lerString(const string& dataStr);
+    Data lerString(const string &dataStr);
     string paraString() const;
+
 private:
     int dia;
     int mes;
@@ -23,4 +25,3 @@ private:
 };
 
 #endif
-

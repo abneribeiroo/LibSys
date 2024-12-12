@@ -179,7 +179,7 @@ void MenuRequisicoes()
     {
         Uteis::clearScreen();
 
-        cout << "\n #----------------------------------------------------------------#";
+        cout << "\n # ---------------------REQUISITANTES-----------------------------#";
         cout << "\n | (1) Requisitar Livro (sistema de reserva*)                     |";
         cout << "\n | (2) Devolver livro (E controle de multas)                      |";
         cout << "\n | (3) Listar Requisições(menu)                                   |";
@@ -193,8 +193,28 @@ void MenuRequisicoes()
         switch (option)
         {
         case 1:
+        {
+            string livroID, leitorID;
+            cout << "Digite o ID do livro a requisitar: ";
+            cin >> livroID;
+            cout << "Digite o ID do leitor: ";
+            cin >> leitorID;
 
+
+            int leitorID_int = stoi(leitorID);
+            if (g_Bib->Buscar_Livro(livroID) && g_Bib->Buscar_Leitor(leitorID_int))
+            {
+                g_Bib->realizarEmprestimo(g_Bib->Buscar_Livro(livroID), g_Bib->Buscar_Leitor(leitorID_int));
+            }
+            else
+            {
+                if (!g_Bib->Buscar_Livro(livroID))
+                    cout << "Livro não encontrado." << endl;
+                if (!g_Bib->Buscar_Leitor(leitorID_int))
+                    cout << "Leitor não encontrado." << endl;
+            }
             break;
+        }
         case 2:
             break;
         case 3:
@@ -211,7 +231,7 @@ void MenuListarRequisicoes()
     int option;
     do
     {
-        Uteis::clearScreen();
+        // Uteis::clearScreen();
 
         cout << "\n #----------------------------------------------------------------#";
         cout << "\n | (1) Listar Livros Requisitados de um leitor                    |";
@@ -222,13 +242,15 @@ void MenuListarRequisicoes()
         cout << "\nQual a sua opcao: ";
         cin >> option;
 
-        Uteis::clearScreen();
+        // Uteis::clearScreen();
 
         switch (option)
         {
         case 1:
             break;
         case 2:
+            cout << "Passei";
+            g_Bib->ListarEmprestimos();
             break;
         case 3:
             break;
