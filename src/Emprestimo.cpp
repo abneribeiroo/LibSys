@@ -1,6 +1,11 @@
+
 #include "Emprestimo.h"
-#include "LivroCientifico.h"
+#include "Jornal.h"
+#include "Revista.h"
 #include "LivroEducativo.h"
+#include "LivroCientifico.h"
+#include "LivroFiccao.h"
+#include "Senior.h"
 #include "Estudante.h"
 #include "Professor.h"
 #include "LeitorComum.h"
@@ -35,7 +40,7 @@ bool Emprestimo::estahAtrasado() const {
 double Emprestimo::calcularMulta() const {
     if (!estahAtrasado()) return 0.0;
 
-    const double MULTA_POR_DIA = 1.0; // 1 real por dia de atraso
+    const double MULTA_POR_DIA = 1.0; // 1 euro por dia de atraso
     auto diasAtraso = chrono::duration_cast<chrono::hours>(chrono::system_clock::now() - dataDevolucao).count() / 24;
 
     double multaTotal = diasAtraso * MULTA_POR_DIA;
