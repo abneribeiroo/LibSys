@@ -9,8 +9,11 @@ class LivroCientifico : public Geral
 
 public:
     LivroCientifico();
-    LivroCientifico(int id, string titulo, string autor, int anoPublicacao, string areaPesquisa);
-    void mostrarInfo() const override;
+    LivroCientifico(int id, string titulo, string autor, Data dataPublicacao, string areaPesquisa);
+    void mostrarInfo() const override{
+        Geral::mostrarInfo();
+        cout << "Área de Pesquisa: " << areaPesquisa << endl;
+    };
     string getCategoria() const override
     {
         return "LivroCientifico";

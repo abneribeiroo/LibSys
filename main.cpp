@@ -10,7 +10,7 @@ int main()
     cout << "\t\tBiblioteca-ESTGV!\n";
 
     g_Bib = new Biblioteca();
-    g_Bib->LoadFile_Livros("./database/livros.txt");
+    // g_Bib->LoadFile_Livros("./database/livros.txt");
     g_Bib->LoadFile_Livros_Leitores("./database/leitores.txt");
 
     int option;

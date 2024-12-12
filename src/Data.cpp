@@ -1,17 +1,17 @@
 #include "../include/Biblioteca.h"
 #include "../include/Data.h"
-#include <cstring> 
+#include <cstring>
 #include <iostream>
 #include <ctime>
 
 using namespace std;
 
-Data::Data() : dia(0), mes(0), ano(0) {} 
+Data::Data() : dia(0), mes(0), ano(0) {}
 
-Data::Data(int dia, int mes, int ano) : dia(dia), mes(mes), ano(ano) {} 
+Data::Data(int dia, int mes, int ano) : dia(dia), mes(mes), ano(ano) {}
 
 Data::~Data() {
-    
+
 }
 
 
@@ -19,13 +19,13 @@ int Data::calcularIdade() const
 {
     time_t t = time(0);
     tm* now = localtime(&t);
-    int anoAtual = now->tm_year + 1900; 
-    int mesAtual = now->tm_mon + 1;  
+    int anoAtual = now->tm_year + 1900;
+    int mesAtual = now->tm_mon + 1;
     int diaAtual = now->tm_mday;
 
     int idade = anoAtual - ano;
 
-    if (mesAtual < mes || 
+    if (mesAtual < mes ||
         (mesAtual == mes && diaAtual < dia)) {
         idade--;
     }
@@ -53,6 +53,9 @@ Data Data::lerData() {
 
     cout << "Insira o dia: ";
     cin >> dia;
+    if(dia == 0){
+        return Data(0,0,0);
+    }
 
     cout << "Insira o mês: ";
     cin >> mes;
@@ -89,7 +92,7 @@ string Data::paraString() const {
 
 bool Data::eValida() const{
         // Verifica o ano
-        if (ano < 1) {
+        if (ano < 1900) {
             return false;
         }
 
@@ -113,4 +116,3 @@ bool Data::eValida() const{
 
         return true;
     }
-

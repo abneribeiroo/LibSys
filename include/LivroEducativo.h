@@ -13,9 +13,12 @@ class LivroEducativo : public Geral
 
 public:
     LivroEducativo();
-    LivroEducativo(int id, string titulo, string autor, int anoPublicacao, string grauEscolaridade);
+    LivroEducativo(int id, string titulo, string autor, Data dataPublicacao, string grauEscolaridade);
 
-    void mostrarInfo() const override;
+    void mostrarInfo() const{
+        Geral::mostrarInfo();
+        cout << "Grau de Escolaridade: " << grauEscolaridade << endl;
+    };
     string getCategoria() const override;
     string getGrauEscolaridade() const { return grauEscolaridade; }
     virtual ~LivroEducativo();

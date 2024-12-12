@@ -108,7 +108,7 @@ void MenuListarLivros()
 
 void MenuRequisitantes()
 {
-    int option;
+    int option, ID;
     do
     {
         // Uteis::clearScreen();
@@ -128,9 +128,13 @@ void MenuRequisitantes()
         switch (option)
         {
         case 1:
+
             g_Bib->registarLeitor();
             break;
         case 2:
+            cout << "Insira o ID para atualizar: ";
+            cin >> ID;
+            g_Bib->Editar_Leitor(ID);
             break;
         case 3:
             break;
@@ -189,6 +193,7 @@ void MenuRequisicoes()
         switch (option)
         {
         case 1:
+
             break;
         case 2:
             break;

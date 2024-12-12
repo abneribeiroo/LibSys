@@ -11,19 +11,19 @@ protected:
     int id;
     string titulo;
     string autor;
-    int anoPublicacao;
+
     bool disponivel;
-    // Data dataPublicacao;
+    Data dataPublicacao;
     //  Talvez adicionar mais atributos para as subclasses
 public:
     Geral();
-    Geral(int id, string titulo, string autor, int anoPublicacao);
+    Geral(int id, string titulo, string autor, Data dataPublicacao);
 
     void setTitulo(const string &novoTitulo) { titulo = novoTitulo; }
 
     void setAutor(const string &novoAutor) { autor = novoAutor; }
 
-    void setAnoPublicacao(int novoAno) { anoPublicacao = novoAno; }
+    void setDataPublicacao(const Data& novaData) { dataPublicacao = novaData; }
 
     virtual void mostrarInfo() const;
 
@@ -32,10 +32,28 @@ public:
     int getId() const {return id;}
     string getTitulo() const { return titulo; }
     string getAutor() const { return autor; }
-    int getAnoPublicacao() const { return anoPublicacao; }
+    string getDataPublicacao() const { return dataPublicacao.paraString(); }
     bool estaDisponivel() const { return disponivel; }
     void setDisponibilidade(bool disp) { disponivel = disp; }
     // virtual string QuemEs() = 0;
+};
+
+class LivroEducativo : public Geral
+{
+private:
+    string grauEscolaridade;
+
+public:
+    LivroEducativo() : Geral(0, "", "", Data()), grauEscolaridade("") {}
+};
+
+class LivroFiccao : public Geral
+{
+private:
+    string genero;
+
+public:
+    LivroFiccao() : Geral(0, "", "", Data()), genero("") {}
 };
 
 #endif // GERAL_H

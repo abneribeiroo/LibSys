@@ -10,8 +10,11 @@ class LivroFiccao : public Geral
 
 public:
     LivroFiccao();
-    LivroFiccao(int id, string titulo, string autor, int anoPublicacao, string genero);
-    void mostrarInfo() const override;
+    LivroFiccao(int id, string titulo, string autor, Data dataPublicacao, string genero);
+    void mostrarInfo() const{
+        Geral::mostrarInfo();
+        cout << "Género: " << genero << endl;
+    };
     string getCategoria() const override { return "LivroFiccao"; }
     string getGenero() const { return genero; }
     virtual ~LivroFiccao();

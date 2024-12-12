@@ -6,24 +6,22 @@ using namespace std;
 
 class Jornal : public Geral
 {
-    string dataPublicacao;
     string editor;
 
 public:
-    Jornal();
-    Jornal(int id, string titulo, string autor, int anoPublicacao, string dataPublicacao, string editor) : Geral(id, titulo, autor, anoPublicacao), dataPublicacao(dataPublicacao), editor(editor) {};
+    Jornal( );
+    Jornal(int id, string titulo, string autor, Data dataPublicacao, string editor);
 
     void mostrarInfo() const
     {
         Geral::mostrarInfo();
-        cout << "Data de Publicacao: " << dataPublicacao << endl;
         cout << "Editor: " << editor << endl;
     }
     string getCategoria() const override
     {
         return "Jornal";
     }
-    string getDataPublicacao() const { return dataPublicacao; }
+    string getDataPublicacao() const { return dataPublicacao.paraString(); }
     string getEditor() const { return editor; }
     virtual ~Jornal();
 

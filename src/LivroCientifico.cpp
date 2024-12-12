@@ -2,14 +2,10 @@
 
 
 LivroCientifico::LivroCientifico() {}
-LivroCientifico::LivroCientifico(int id, string titulo, string autor, int anoPublicacao, string areaPesquisa) : Geral(id,titulo, autor, anoPublicacao), areaPesquisa(areaPesquisa) {}
+LivroCientifico::LivroCientifico(int id, string titulo, string autor, Data dataPublicacao, string areaPesquisa) : Geral(id,titulo, autor, dataPublicacao), areaPesquisa(areaPesquisa) {}
 
 
-void LivroCientifico::mostrarInfo() const
-{
-    Geral::mostrarInfo();
-    cout << "Area de Pesquisa: " << areaPesquisa << endl;
-}
+
 
 LivroCientifico::~LivroCientifico()
 {

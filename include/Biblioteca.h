@@ -31,7 +31,7 @@ private:
     int highestId;
     int getNextId();
 
-    void getCommonBookInfo(std::string &titulo, std::string &autor, int &anoPublicacao);
+    void getCommonBookInfo(std::string &titulo, std::string &autor, Data dataPublicacao);
 
 public:
     Biblioteca();
@@ -49,7 +49,7 @@ public:
     //void Relatorio_Livros_Por_Categoria() const;
 
     bool SaveToFile_Livros(const string &filename);
-    bool LoadFile_Livros(const string &filename);
+    // bool LoadFile_Livros(const string &filename);
 
     void RelatorioCategoria(string cat); // TODO: Implementar
     void Prorrogacao_Emprestimos();      // TODO: Implementar
@@ -60,12 +60,12 @@ public:
     bool Add_Leitor(Pessoa *P);
     bool Remove_Leitor(int id);
     Pessoa *Buscar_Leitor(int id) const;
-    void Editar_Leitor(int id);
+    void Editar_Leitor(int id) const;
     void Listagem_Leitores() const;
     void registarLeitor();
     int gerarID_leitor();
     bool SaveToFile_Livros_Leitores(const string &filename);
-    bool LoadFile_Livros_Leitores(const string &filename);
+    // bool LoadFile_Livros_Leitores(const string &filename);
 
     bool realizarEmprestimo(Geral *livro, Pessoa *leitor);
     // bool realizarDevolucao(Geral *livro, Pessoa *leitor);
