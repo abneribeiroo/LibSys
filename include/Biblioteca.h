@@ -67,7 +67,7 @@ public:
     bool SaveToFile_Livros_Leitores(const string &filename);
     bool LoadFile_Livros_Leitores(const string &filename);
 
-    // bool realizarEmprestimo(Geral *livro, Pessoa *leitor);
+    bool realizarEmprestimo(Geral *livro, Pessoa *leitor);
     // bool realizarDevolucao(Geral *livro, Pessoa *leitor);
     // bool fazerReserva(Geral *livro, Pessoa *leitor);
     // void processarReservas();
