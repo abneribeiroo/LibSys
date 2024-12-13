@@ -1,1 +1,2 @@
-LivroCientifico;1;2;12/12/2024;0/0/0;0;0
+LivroCientifico;1;2;5/12/2024;12/12/2024;1;1
+LivroCientifico;6;8;5/12/2024;0/0/0;0;1.2
