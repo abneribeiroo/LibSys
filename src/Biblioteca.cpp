@@ -163,10 +163,6 @@ void Biblioteca::RelatorioCategoria(string cat)
 {
     cout << "Um dia faco este metodo <" << __FUNCTION__ << ">" << endl;
 }
-void Biblioteca::Prorrogacao_Emprestimos()
-{
-    cout << "Um dia faco este metodo <" << __FUNCTION__ << ">" << endl;
-}
 void Biblioteca::Sistema_Notificacoes_Atraso()
 {
     cout << "Um dia faco este metodo <" << __FUNCTION__ << ">" << endl;
@@ -586,6 +582,49 @@ void Biblioteca::Listagem_Leitores() const
     cin.ignore();
 }
 
+void Biblioteca::Buscarleitor_por_categoria() const
+{
+    int tipo;
+    cout << "Selecione o tipo de leitor que deseja listar:" << endl;
+    cout << "1. Estudante" << endl;
+    cout << "2. Leitor Comum" << endl;
+    cout << "3. Professor" << endl;
+    cout << "4. Senior" << endl;
+    cout << "Escolha: ";
+    cin >> tipo;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    string categoria;
+    switch (tipo)
+    {
+    case 1:
+        categoria = "Estudante";
+        break;
+    case 2:
+        categoria = "LeitorComum";
+        break;
+    case 3:
+        categoria = "Professor";
+        break;
+    case 4:
+        categoria = "Senior";
+        break;
+    }
+    auto it = Coleccao_LEITORES.find(categoria);
+    if (it != Coleccao_LEITORES.end())
+    {
+        cout << "Categoria: " << categoria << endl;
+        for (const auto *pessoa : it->second)
+        {
+            pessoa->mostrarInfo();
+            cout << "--------------------" << endl;
+        }
+    }
+    else
+    {
+        cout << "Categoria não encontrada." << endl;
+    }
+}
+
 int Biblioteca::gerarID_leitor()
 {
     int id = 0;
@@ -742,6 +781,7 @@ bool Biblioteca::realizarEmprestimo(Geral *livro, Pessoa *leitor)
     Data novaData;
     novaData = novaData.dataAtual();
     novoEmprestimo->setDataEmprestimo(novaData);
+    novoEmprestimo->calcularDataLimite();
 
     string categoria = livro->getCategoria();
     Coleccao_Emprestimo[categoria].push_back(novoEmprestimo);
@@ -767,7 +807,7 @@ bool Biblioteca::LoadFile_Emprestimos(const string &filename)
         string categoria, livroIdStr, leitorIdStr, dataEmprestimoStr, dataDevolucaoStr, devolvidoStr, multaStr;
         int livroId, leitorId;
         bool devolvido;
-        float multa;
+
 
         getline(ss, categoria, ';');
         getline(ss, livroIdStr, ';');
@@ -780,7 +820,7 @@ bool Biblioteca::LoadFile_Emprestimos(const string &filename)
         livroId = stoi(livroIdStr);
         leitorId = stoi(leitorIdStr);
         devolvido = devolvidoStr == "1";
-        multa = stof(multaStr);
+
 
         Geral *livro = Buscar_Livro(to_string(livroId));
         Pessoa *leitor = Buscar_Leitor(leitorId);
@@ -791,7 +831,7 @@ bool Biblioteca::LoadFile_Emprestimos(const string &filename)
             emprestimo->setDataEmprestimo(Data().lerString(dataEmprestimoStr));
             emprestimo->setDataDevolucao(Data().lerString(dataDevolucaoStr));
             emprestimo->setDevolvido(devolvido);
-            emprestimo->setMulta(multa);
+            emprestimo->calcularDataLimite();
 
             Coleccao_Emprestimo[categoria].push_back(emprestimo);
         }
@@ -800,6 +840,7 @@ bool Biblioteca::LoadFile_Emprestimos(const string &filename)
             return false;
         }
     }
+    cout << "Dados carregados com sucesso do arquivo " << filename << endl;
 
     return true;
 }
@@ -838,11 +879,139 @@ bool Biblioteca::salvarEmprestimos(const string &filename) const
                  << emprestimo->getDataEmprestimo() << ";"
                  << emprestimo->getDataDevolucao() << ";"
                  << emprestimo->estaDevolvido() << ";"
-                 << emprestimo->getMulta() << endl;
+                 << emprestimo->getMulta().getValorFinal() << endl;
         }
     }
 
     file.close();
     cout << "Dados salvos com sucesso no arquivo " << filename << endl;
     return true;
+}
+
+int Biblioteca::subtrairData(Data d1, Data d2) {
+    int dias = 0;
+
+    int totalDiasD1 = d1.getAno() * 365 + d1.getMes() * 30 + d1.getDia();
+
+    int totalDiasD2 = d2.getAno() * 365 + d2.getMes() * 30 + d2.getDia();
+
+    dias = totalDiasD1 - totalDiasD2;
+
+    return dias;
+}
+
+bool Biblioteca::compararDatas(const Data& data1, const Data& data2) {
+    if (data1.getAno() > data2.getAno()) {
+        return true;
+    }
+    else if (data1.getAno() == data2.getAno()) {
+        if (data1.getMes() > data2.getMes()) {
+            return true;
+        }
+        else if (data1.getMes() == data2.getMes()) {
+            if (data1.getDia() > data2.getDia()) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool Biblioteca::GerarMultas() {
+    for (const auto &par : Coleccao_Emprestimo) {
+        for (const auto &emprestimo : par.second) {
+            if (!Data().lerString(emprestimo->getDataDevolucao()).eValida()) {
+                int diasAtraso = subtrairData(Data().dataAtual(), Data().lerString(emprestimo->getDataLimite()));
+                Multa multa;
+                multa = multa.calcularMulta(diasAtraso, 0.5, (emprestimo->getLeitor()->getDesconto())*0.01);
+                emprestimo->setMulta(multa);
+                }else{
+                int diasAtraso = subtrairData(Data().lerString(emprestimo->getDataDevolucao()), Data().lerString(emprestimo->getDataLimite()));
+                Multa multa;
+                multa = multa.calcularMulta(diasAtraso, 0.5, (emprestimo->getLeitor()->getDesconto())*0.01);
+                emprestimo->setMulta(multa);
+                }
+        }
+    }
+    return true;
+}
+
+bool Biblioteca::DevolverLivro(int id) {
+    for (auto &par : Coleccao_Emprestimo) {
+        for (auto &emprestimo : par.second) {
+            if (emprestimo->getId() == id) {
+                emprestimo->realizarDevolucao();
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+void Biblioteca::Listar_Leitores_Atraso(){
+    for (const auto &par : Coleccao_Emprestimo) {
+        for (const auto &emprestimo : par.second) {
+            if (!Data().lerString(emprestimo->getDataDevolucao()).eValida()) {
+                int diasAtraso = subtrairData(Data().dataAtual(), Data().lerString(emprestimo->getDataLimite()));
+                if (diasAtraso > 0) {
+                    emprestimo->getLeitor()->mostrarInfo();
+                    cout << "Dias de atraso: " << diasAtraso << endl;
+                }
+            }
+    }
+}
+}
+
+void Biblioteca::Prorrogacao_Emprestimos(){
+    int id;
+    cout << "Digite o ID do empréstimo que deseja prorrogar: ";
+    cin >> id;
+    for (auto &par : Coleccao_Emprestimo) {
+        for (auto &emprestimo : par.second) {
+            if (emprestimo->getId() == id) {
+                emprestimo->prorrogarEmprestimo();
+                return;
+            }
+        }
+    }
+}
+
+void Biblioteca::Listagem_Emprestimo_leitor(){
+    int id;
+    cout << "Digite o ID do leitor: ";
+    cin >> id;
+
+    for (const auto &par : Coleccao_Emprestimo) {
+        for (const auto &emprestimo : par.second) {
+            if (emprestimo->getLeitor()->getId() == id) {
+                emprestimo->mostrarInfo();
+                cout << "--------------------" << endl;
+            }
+        }
+    }
+}
+
+void Biblioteca::Listagem_Multas_Pendentes(){
+    for (const auto &par : Coleccao_Emprestimo) {
+        for (const auto &emprestimo : par.second) {
+            if (emprestimo->getMulta().getPago() == false) {
+                emprestimo->mostrarInfo();
+                cout << "--------------------" << endl;
+            }
+        }
+    }
+}
+
+void Biblioteca::Pagar_Multa(){
+    int id = 0;
+    cout << "Digite o ID da Requisição que deseja pagar: ";
+    cin >> id;
+    for (auto &par : Coleccao_Emprestimo) {
+        for (auto &emprestimo : par.second) {
+            if (emprestimo->getId() == id && emprestimo->getDevolvido() == true) {
+                emprestimo->getMulta().setPago(true);
+                return;
+            }
+        }
+    }
 }

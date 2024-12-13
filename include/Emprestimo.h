@@ -4,6 +4,7 @@
 #include "Geral.h"
 #include "Pessoa.h"
 #include "Data.h"
+#include "Multa.h"
 #include <string>
 
 class Emprestimo {
@@ -15,7 +16,8 @@ private:
     Data dataDevolucao;
     Data dataLimite;
     bool devolvido;
-    double multa;
+    Multa valorMulta;
+    int prorrogado;
 
 public:
     Emprestimo(int id, Geral* livro, Pessoa* leitor);
@@ -33,7 +35,8 @@ public:
     string getDataDevolucao() const { return dataDevolucao.paraString(); }
     string getDataLimite() const { return dataLimite.paraString(); }
     bool estaDevolvido() const { return devolvido; }
-    double getMulta() const { return multa; }
+    bool getDevolvido() const { return devolvido; }
+    Multa getMulta() const { return valorMulta; }
 
     // Setters for loading data
     void setId(int novoId) { id = novoId; }
@@ -42,7 +45,7 @@ public:
     void setDataLimite(Data data) { dataLimite = data; }
     void setDevolvido(bool estado) { devolvido = estado; }
 
-    void setMulta(double valor) { multa = valor; }
+    void setMulta(Multa novaMulta) {valorMulta = novaMulta; }
 
     void mostrarInfo() const {
         cout << "ID: " << id << endl;
@@ -52,8 +55,12 @@ public:
         cout << "Data de Devolucao: " << dataDevolucao.paraString() << endl;
         cout << "Data Limite: " << dataLimite.paraString() << endl;
         cout << "Devolvido: " << (devolvido ? "Sim" : "Não") << endl;
-        cout << "Multa: " << multa << endl;
+        if (valorMulta.getValorFinal() > 0){ 
+            valorMulta.exibirMulta();
+        }
     }
+    void calcularDataLimite();
+    void prorrogarEmprestimo();
 };
 
 #endif // EMPRESTIMO_H

@@ -69,13 +69,21 @@ public:
     int gerarID_leitor();
     bool SaveToFile_Livros_Leitores(const string &filename);
     bool LoadFile_Livros_Leitores(const string &filename);
-    bool compararDatas(const Data& data1, const Data& data2); // se a data 2 for maior que a data 1 volta true, se não volta false
-
-
+    
     bool realizarEmprestimo(Geral *livro, Pessoa *leitor);
     bool salvarEmprestimos(const string& filename) const;
     void ListarEmprestimos();
     bool LoadFile_Emprestimos(const string &filename);
+    int subtrairData(Data d1, Data d2);
+    
+    bool compararDatas(const Data& data1, const Data& data2);  
+    bool GerarMultas();
+    bool DevolverLivro(int id);
+    void Buscarleitor_por_categoria() const;
+    void Listar_Leitores_Atraso();
+    void Listagem_Emprestimo_leitor();
+    void Listagem_Multas_Pendentes();
+    void Pagar_Multa();
 };
 
 #endif // BIBLIOTECA_H

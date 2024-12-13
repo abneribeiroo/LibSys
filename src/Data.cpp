@@ -116,3 +116,21 @@ bool Data::eValida() const{
 
         return true;
     }
+
+Data Data::adicionarDias(int dias) {
+    // Número de dias em cada mês
+    int diasNoMes[] = { 31, 29, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+    dia += dias;
+
+    while (dia > diasNoMes[mes - 1]) {
+        dia -= diasNoMes[mes - 1];
+        mes++;
+
+        if (mes > 12) {
+            mes = 1;
+            ano++;
+        }
+    }
+    return Data(dia, mes, ano);
+}

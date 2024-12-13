@@ -13,6 +13,7 @@ int main()
     g_Bib->LoadFile_Livros("./database/livros.txt");
     g_Bib->LoadFile_Livros_Leitores("./database/leitores.txt");
     g_Bib->LoadFile_Emprestimos("./database/emprestimos.txt");
+    g_Bib->GerarMultas();
 
     int option;
     do

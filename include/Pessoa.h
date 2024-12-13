@@ -32,6 +32,7 @@ class Pessoa
         Data getnascData() const { return nascData; }
         Data getregData() const { return regData; }
         void setNome(const string &novoNome) { nome = novoNome; }
+        virtual int getDesconto() const{ return 0; }
 
         void setNasc(const Data& novaData) { nascData = novaData; }
 

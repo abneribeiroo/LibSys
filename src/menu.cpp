@@ -137,6 +137,9 @@ void MenuRequisitantes()
             g_Bib->Editar_Leitor(ID);
             break;
         case 3:
+            cout << "Insira o ID para remover: ";
+            cin >> ID;
+            g_Bib->Remove_Leitor(ID);
             break;
         case 4:
             MenuListarRequisitantes();
@@ -155,6 +158,8 @@ void MenuListarRequisitantes()
         cout << "\n | ---------------------REQUISITANTES-----------------------------|";
         cout << "\n | (1) Listar requisitantes com livros em atraso                  |";
         cout << "\n | (2) Listar requisitante por categoria                          |";
+        cout << "\n | (3) Listar requisitante agrupador por categoria                |";
+        cout << "\n | (4) Buscar requisitante por ID                                 |";
         cout << "\n | (0) SAIR                                                       |";
         cout << "\n #----------------------------------------------------------------#";
         cout << "\nQual a sua opcao: ";
@@ -164,9 +169,19 @@ void MenuListarRequisitantes()
         switch (option)
         {
         case 1:
+            g_Bib->Listar_Leitores_Atraso();
             break;
         case 2:
             g_Bib->Listagem_Leitores();
+            break;
+        case 3:
+            g_Bib->Buscarleitor_por_categoria();
+            break;
+        case 4:
+            int id;
+            cout << "Digite o ID do leitor a buscar: ";
+            cin >> id;
+            g_Bib->Buscar_Leitor(id)->mostrarInfo();
             break;
         }
     } while (option != 0);
@@ -184,6 +199,7 @@ void MenuRequisicoes()
         cout << "\n | (2) Devolver livro (E controle de multas)                      |";
         cout << "\n | (3) Listar Requisições(menu)                                   |";
         cout << "\n | (4) Prorrogar Empréstimos(Estudantes e Professores)            |";
+        cout << "\n | (5) Pagar Multa Pendente                                       |";
         cout << "\n | (0) SAIR                                                       |";
         cout << "\n #----------------------------------------------------------------#";
         cout << "\nQual a sua opcao: ";
@@ -216,11 +232,20 @@ void MenuRequisicoes()
             break;
         }
         case 2:
+            int ID;
+            cout << "Digite o ID do livro a devolver: ";
+            cin >> ID;
+            g_Bib->DevolverLivro(ID);
             break;
         case 3:
             MenuListarRequisicoes();
             break;
         case 4:
+            g_Bib->Prorrogacao_Emprestimos();
+            g_Bib->GerarMultas();
+            break;
+        case 5:
+            g_Bib->Pagar_Multa();
             break;
         }
     } while (option != 0);
@@ -247,12 +272,13 @@ void MenuListarRequisicoes()
         switch (option)
         {
         case 1:
+            g_Bib->Listagem_Emprestimo_leitor();
             break;
         case 2:
-            cout << "Passei";
             g_Bib->ListarEmprestimos();
             break;
         case 3:
+            g_Bib->Listagem_Multas_Pendentes();
             break;
         }
     } while (option != 0);

@@ -17,6 +17,11 @@ public:
     Data dataAtual();
     Data lerString(const string &dataStr);
     string paraString() const;
+    int getDia() const{ return dia; };
+    int getMes() const{ return mes; };
+    int getAno() const{ return ano; };
+    Data adicionarDias(int dias);
+    
 
 private:
     int dia;
