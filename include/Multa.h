@@ -1,27 +1,26 @@
-#ifndef DATA_H
-#define DATA_H
+// Multa.h
+#ifndef MULTA_H
+#define MULTA_H
+
 #include <iostream>
-#include <string>
 using namespace std;
 
-class Multa
-{
+class Multa {
 public:
     Multa();
-    Multa(int dia, int mes, int ano);
-    virtual ~Multa();
-    virtual void mostrarInfo() const;
-    int calcularIdade() const;
-    bool eValida() const;
-    Multa lerData();
-    Multa dataAtual();
-    Multa lerString(const string &dataStr);
-    string paraString() const;
+    ~Multa();
+    void exibirMulta() const;
+    Multa calcularMulta(int diasAtraso, double valorBasePorDia, double desconto);
+    double getValorFinal() const { return valorFinal; }
+    void setPago(bool estado) { pago = estado; }
+    bool getPago() const { return pago; }
 
 private:
-    int dia;
-    int mes;
-    int ano;
+    int diasAtraso;
+    double valorBasePorDia;
+    double desconto;
+    double valorFinal;
+    bool pago;
 };
 
-#endif
+#endif // MULTA_H
