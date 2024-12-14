@@ -930,6 +930,8 @@ bool Biblioteca::GerarMultas() {
                 Multa multa;
                 multa = multa.calcularMulta(diasAtraso, 0.5, (emprestimo->getLeitor()->getDesconto())*0.01);
                 emprestimo->setMulta(multa);
+
+                //teste
                 }
         }
     }
