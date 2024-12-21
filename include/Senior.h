@@ -2,32 +2,29 @@
 #define SENIOR_H
 #include <iostream>
 #include <string>
-#include "Pessoa.h"
+#include "Person.h"
 using namespace std;
 
-class Senior : public Pessoa
+class Senior : public Person
 {
 private:
-    int Desconto; // em percentagem ex:20 para 20%
+    int discount; // in percentage e.g., 20 for 20%
 public:
-
     Senior();
-    Senior(string nome, Data nascData, int id, Data regData, int Desconto) : Pessoa(nome, nascData, id, regData), Desconto(Desconto) {};
+    Senior(string name, Date birthDate, int id, Date regDate, int discount) : Person(name, birthDate, id, regDate), discount(discount) {};
 
-    void mostrarInfo() const {
-        Pessoa::mostrarInfo();
-        cout << "Desconto: " << Desconto << "%" << endl;
-        cout << "Tipo de Leitor: Senior" << endl;
+    void showInfo() const
+    {
+        Person::showInfo();
+        cout << "Discount: " << discount << "%" << endl;
+        cout << "Reader Type: Senior" << endl;
     }
     virtual ~Senior();
-    int getDesconto() const { return Desconto; }
-    string getCategoria() const override
+    int getDiscount() const { return discount; }
+    string getCategory() const override
     {
         return "Senior";
     };
 };
-
-
-
 
 #endif // SENIOR_H

@@ -1,60 +1,60 @@
 #include <iostream>
 #include "include/menu.h"
-#include "include/Biblioteca.h"
-#include "include/LivroCientifico.h"
+#include "include/Library.h"
+#include "include/ScientificBook.h"
 
-Biblioteca *g_Bib = nullptr;
+Library *g_Bib = nullptr;
 
 int main()
 {
-    cout << "\t\tBiblioteca-ESTGV!\n";
+    cout << "\t\tLibrary-ESTGV!\n";
 
-    g_Bib = new Biblioteca();
-    g_Bib->LoadFile_Livros("./database/livros.txt");
-    g_Bib->LoadFile_Livros_Leitores("./database/leitores.txt");
-    g_Bib->LoadFile_Emprestimos("./database/emprestimos.txt");
-    g_Bib->GerarMultas();
+    g_Bib = new Library();
+    g_Bib->LoadFile_Books("./database/books.txt");
+    g_Bib->LoadFile_Readers("./database/readers.txt");
+    g_Bib->LoadFile_Loans("./database/loans.txt");
+    g_Bib->GenerateFines();
 
     int option;
     do
     {
         cout << "\n #----------------------------------------------------------------#";
-        cout << "\n | (1) Gerir livros                                               |";
-        cout << "\n | (2) Gerir Requisitantes                                        |";
-        cout << "\n | (3) Gerir Requisições                                          |";
-        cout << "\n | (4) Opções Avançadas                                           |";
-        cout << "\n | (5) Sair                                                       |";
-        cout << "\n | (0) Salvar e Sair                                              |";
+        cout << "\n | (1) Manage Books                                               |";
+        cout << "\n | (2) Manage Readers                                             |";
+        cout << "\n | (3) Manage Loans                                               |";
+        cout << "\n | (4) Advanced Options                                           |";
+        cout << "\n | (5) Exit                                                       |";
+        cout << "\n | (0) Save and Exit                                              |";
         cout << "\n #----------------------------------------------------------------#";
-        cout << "\nQual a sua opcao: ";
+        cout << "\nWhat is your option: ";
         cin >> option;
 
         switch (option)
         {
         case 1:
-            MenuLivros();
+            BooksMenu();
             break;
         case 2:
-            MenuRequisitantes();
+            RequestersMenu();
             break;
         case 3:
-            MenuRequisicoes();
+            RequestsMenu();
             break;
         case 4:
         {
-            MenuAvancado();
+            AdvancedMenu();
             break;
         }
         case 5:
         {
-            cout << "\n\n ***** Saindo *****\n";
+            cout << "\n\n ***** Exiting *****\n";
             break;
         }
         case 0:
-            g_Bib->SaveToFile_Livros("./database/livros.txt");
-            g_Bib->salvarEmprestimos("./database/emprestimos.txt");
-            cout << "\n\n ***** Salvando os dados *****\n";
-            cout << " ***** Saindo do programa *****\n";
+            g_Bib->SaveToFile_Books("./Database/books.txt");
+            g_Bib->SaveToFile_Loans("./Database/loans.txt");
+            cout << "\n\n ***** Saving data *****\n";
+            cout << " ***** Exiting the program *****\n";
             break;
         }
     } while (option != 0 && option != 5);

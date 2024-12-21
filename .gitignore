@@ -3,7 +3,7 @@
 
 # Ignorar o executável gerado
 main
-
+*.exe
 # Ignorar diretórios de build ou temporários
 /build/
 /bin/

@@ -1,73 +1,72 @@
 #include "../include/menu.h"
-#include "../include/Biblioteca.h"
-#include "../include/LivroCientifico.h"
-#include "../include/LivroFiccao.h"
-#include "../include/LivroEducativo.h"
-#include "../include/Revista.h"
-#include "../include/Jornal.h"
-#include "../include/Geral.h"
-#include "../include/Biblioteca.h"
-#include "../include/Uteis.h"
+#include "../include/Library.h"
+#include "../include/ScientificBook.h"
+#include "../include/FictionBook.h"
+#include "../include/EducationalBook.h"
+#include "../include/Magazine.h"
+#include "../include/Newspaper.h"
+#include "../include/General.h"
+#include "../include/Utils.h"
 #include <iostream>
 #include <string>
 
 using namespace std;
 
-extern Biblioteca *g_Bib;
+extern Library *g_Bib;
 
-void MenuLivros()
+void BooksMenu()
 {
     int option;
     do
     {
-        // Uteis::clearScreen();
+        // Utils::clearScreen();
 
         cout << "\n #-------------------------------------------------------------#";
-        cout << "\n | (1) Adicionar livros                                        |";
-        cout << "\n | (2) Remover livros                                          |";
-        cout << "\n | (3) Editar livros                                           |";
-        cout << "\n | (4) Listar livros (menu)                                    |";
-        cout << "\n | (0) Voltar                                                  |";
+        cout << "\n | (1) Add books                                               |";
+        cout << "\n | (2) Remove books                                            |";
+        cout << "\n | (3) Edit books                                              |";
+        cout << "\n | (4) List books (menu)                                       |";
+        cout << "\n | (0) Back                                                    |";
         cout << "\n #-------------------------------------------------------------#";
-        cout << "\nQual a sua opcao: ";
+        cout << "\nWhat is your option: ";
         cin >> option;
 
-        // Uteis::clearScreen();
+        // Utils::clearScreen();
         string id;
         switch (option)
         {
         case 1:
         {
-            g_Bib->registrarNovoLivro();
+            g_Bib->registerNewBook();
             break;
         }
         case 2:
-            cout << "Digite o ID do livro a remover: ";
+            cout << "Enter the ID of the book to remove: ";
             cin >> id;
-            if (g_Bib->Remove_Livro(id))
+            if (g_Bib->RemoveBook(id))
             {
-                cout << "Livro removido com sucesso!" << endl;
+                cout << "Book removed successfully!" << endl;
             }
             else
             {
-                cout << "Livro não encontrado." << endl;
+                cout << "Book not found." << endl;
             }
             break;
         case 3:
-            cout << "Digite o ID do livro a editar: ";
+            cout << "Enter the ID of the book to edit: ";
             cin >> id;
-            g_Bib->Editar_Livro(id);
+            g_Bib->EditBook(id);
             break;
         case 4:
         {
-            MenuListarLivros();
+            ListBooksMenu();
             break;
         }
         }
     } while (option != 0);
 }
 
-void MenuListarLivros()
+void ListBooksMenu()
 {
     int option;
     string ID;
@@ -75,232 +74,229 @@ void MenuListarLivros()
     {
 
         cout << "\n #-------------------------------------------------------------#";
-        cout << "\n | (1) Listar livros por categoria                             |";
-        cout << "\n | (2) Listar livros agrupados por categoria                   |";
-        cout << "\n | (3) Buscar livro                                            |";
-        cout << "\n | (0) Voltar                                                  |";
+        cout << "\n | (1) List books by category                                  |";
+        cout << "\n | (2) List books grouped by category                          |";
+        cout << "\n | (3) Search book                                             |";
+        cout << "\n | (0) Back                                                    |";
         cout << "\n #-------------------------------------------------------------#";
-        cout << "\nQual a sua opcao: ";
+        cout << "\nWhat is your option: ";
         cin >> option;
 
-        Uteis::clearScreen();
+        Utils::clearScreen();
         switch (option)
         {
         case 1:
-            g_Bib->Listagem_Livros();
+            g_Bib->ListAllBooks();
             break;
         case 2:
-            g_Bib->ListarCategoria();
+            g_Bib->ReportByCategory(); // Replace "category" with the actual category if needed
             break;
         case 3:
-            cout << "Digite o ID do livro a buscar: ";
+            cout << "Enter the ID of the book to search: ";
             cin >> ID;
 
-            Geral *livro = g_Bib->Buscar_Livro(ID);
-            if (livro)
-                livro->mostrarInfo();
+            General *book = g_Bib->FindBook(ID);
+            if (book)
+                book->showInfo();
             else
-                cout << "Livro não encontrado." << endl;
+                cout << "Book not found." << endl;
             break;
         }
     } while (option != 0);
 }
 
-void MenuRequisitantes()
+void RequestersMenu()
 {
     int option, ID;
     do
     {
-        // Uteis::clearScreen();
+        // Utils::clearScreen();
 
-        cout << "\n | ---------------------REQUISITANTES-----------------------------|";
-        cout << "\n | (1) Adicionar requisitantes                                    |";
-        cout << "\n | (2) Editar requisitante                                        |";
-        cout << "\n | (3) Remover requisitante                                       |";
-        cout << "\n | (4) Listar requisitante                                        |";
-        cout << "\n | (0) SAIR                                                       |";
-        cout << "\n #----------------------------------------------------------------#";
-        cout << "\nQual a sua opcao: ";
+        cout << "\n | ---------------------READERS-------------------------------|";
+        cout << "\n | (1) Add readers                                            |";
+        cout << "\n | (2) Edit reader                                            |";
+        cout << "\n | (3) Remove reader                                          |";
+        cout << "\n | (4) List readers                                           |";
+        cout << "\n | (0) EXIT                                                   |";
+        cout << "\n #------------------------------------------------------------#";
+        cout << "\nWhat is your option: ";
         cin >> option;
 
-        // Uteis::clearScreen();
 
         switch (option)
         {
         case 1:
-
-            g_Bib->registarLeitor();
+            g_Bib->RegisterReader();
             break;
         case 2:
-            cout << "Insira o ID para atualizar: ";
+            cout << "Enter the ID to update: ";
             cin >> ID;
-            g_Bib->Editar_Leitor(ID);
+            g_Bib->EditReader(ID);
             break;
         case 3:
-            cout << "Insira o ID para remover: ";
+            cout << "Enter the ID to remove: ";
             cin >> ID;
-            g_Bib->Remove_Leitor(ID);
+            g_Bib->RemoveReader(ID);
             break;
         case 4:
-            MenuListarRequisitantes();
+            ListRequestersMenu();
             break;
         }
 
     } while (option != 0);
 }
 
-void MenuListarRequisitantes()
+void ListRequestersMenu()
 {
     int option;
     do
     {
-        // Uteis::clearScreen();
-        cout << "\n | ---------------------REQUISITANTES-----------------------------|";
-        cout << "\n | (1) Listar requisitantes com livros em atraso                  |";
-        cout << "\n | (2) Listar requisitante por categoria                          |";
-        cout << "\n | (3) Listar requisitante agrupador por categoria                |";
-        cout << "\n | (4) Buscar requisitante por ID                                 |";
-        cout << "\n | (0) SAIR                                                       |";
-        cout << "\n #----------------------------------------------------------------#";
-        cout << "\nQual a sua opcao: ";
+        // Utils::clearScreen();
+        cout << "\n #------------------------------------------------------------#";
+        cout << "\n | (1) List readers with overdue books                        |";
+        cout << "\n | (2) List readers by category                               |";
+        cout << "\n | (3) List readers grouped by category                       |";
+        cout << "\n | (4) Search reader by ID                                    |";
+        cout << "\n | (0) EXIT                                                   |";
+        cout << "\n #------------------------------------------------------------#";
+        cout << "\nWhat is your option: ";
         cin >> option;
 
-        // Uteis::clearScreen();
+        // Utils::clearScreen();
         switch (option)
         {
         case 1:
-            g_Bib->Listar_Leitores_Atraso();
+            g_Bib->ListLateReaders();
             break;
         case 2:
-            g_Bib->Listagem_Leitores();
+            g_Bib->ListReaders();
             break;
         case 3:
-            g_Bib->Buscarleitor_por_categoria();
+            g_Bib->FindReaderByCategory();
             break;
         case 4:
             int id;
-            cout << "Digite o ID do leitor a buscar: ";
+            cout << "Enter the ID of the reader to search: ";
             cin >> id;
-            g_Bib->Buscar_Leitor(id)->mostrarInfo();
+            g_Bib->FindReader(id)->showInfo();
             break;
         }
     } while (option != 0);
 }
 
-void MenuRequisicoes()
+void RequestsMenu()
 {
     int option;
     do
     {
-        Uteis::clearScreen();
+        Utils::clearScreen();
 
-        cout << "\n # ---------------------REQUISITANTES-----------------------------#";
-        cout << "\n | (1) Requisitar Livro (sistema de reserva*)                     |";
-        cout << "\n | (2) Devolver livro (E controle de multas)                      |";
-        cout << "\n | (3) Listar Requisições(menu)                                   |";
-        cout << "\n | (4) Prorrogar Empréstimos(Estudantes e Professores)            |";
-        cout << "\n | (5) Pagar Multa Pendente                                       |";
-        cout << "\n | (0) SAIR                                                       |";
-        cout << "\n #----------------------------------------------------------------#";
-        cout << "\nQual a sua opcao: ";
+        cout << "\n # ---------------------BORROWERS-----------------------------#";
+        cout << "\n | (1) Request Book (reservation system*)                     |";
+        cout << "\n | (2) Return book (And control of Fines)                     |";
+        cout << "\n | (3) List Requests (menu)                                   |";
+        cout << "\n | (4) Extend Loans (Students and Teachers)                   |";
+        cout << "\n | (5) Pay Pending Fine                                       |";
+        cout << "\n | (0) EXIT                                                   |";
+        cout << "\n #------------------------------------------------------------#";
+        cout << "\nWhat is your option: ";
         cin >> option;
 
-        Uteis::clearScreen();
+        Utils::clearScreen();
         switch (option)
         {
         case 1:
         {
-            string livroID, leitorID;
-            cout << "Digite o ID do livro a requisitar: ";
-            cin >> livroID;
-            cout << "Digite o ID do leitor: ";
-            cin >> leitorID;
+            string bookID, readerID;
+            cout << "Enter the ID of the book to request: ";
+            cin >> bookID;
+            cout << "Enter the ID of the reader: ";
+            cin >> readerID;
 
-
-            int leitorID_int = stoi(leitorID);
-            if (g_Bib->Buscar_Livro(livroID) && g_Bib->Buscar_Leitor(leitorID_int))
+            int readerID_int = stoi(readerID);
+            if (g_Bib->FindBook(bookID) && g_Bib->FindReader(readerID_int))
             {
-                g_Bib->realizarEmprestimo(g_Bib->Buscar_Livro(livroID), g_Bib->Buscar_Leitor(leitorID_int));
+                g_Bib->PerformLoan(g_Bib->FindBook(bookID), g_Bib->FindReader(readerID_int));
             }
             else
             {
-                if (!g_Bib->Buscar_Livro(livroID))
-                    cout << "Livro não encontrado." << endl;
-                if (!g_Bib->Buscar_Leitor(leitorID_int))
-                    cout << "Leitor não encontrado." << endl;
+                if (!g_Bib->FindBook(bookID))
+                    cout << "Book not found." << endl;
+                if (!g_Bib->FindReader(readerID_int))
+                    cout << "Reader not found." << endl;
             }
             break;
         }
         case 2:
             int ID;
-            cout << "Digite o ID do livro a devolver: ";
+            cout << "Enter the ID of the book to return: ";
             cin >> ID;
-            g_Bib->DevolverLivro(ID);
+            g_Bib->ReturnBook(ID);
             break;
         case 3:
-            MenuListarRequisicoes();
+            ListRequestsMenu();
             break;
         case 4:
-            g_Bib->Prorrogacao_Emprestimos();
-            g_Bib->GerarMultas();
+            g_Bib->ExtendLoans();
+            g_Bib->GenerateFines();
             break;
         case 5:
-            g_Bib->Pagar_Multa();
+            g_Bib->PayFine();
             break;
         }
     } while (option != 0);
 }
 
-void MenuListarRequisicoes()
+void ListRequestsMenu()
 {
     int option;
     do
     {
-        // Uteis::clearScreen();
+        // Utils::clearScreen();
 
-        cout << "\n #----------------------------------------------------------------#";
-        cout << "\n | (1) Listar Livros Requisitados de um leitor                    |";
-        cout << "\n | (2) Listar Livros Requisitados de todos leitores               |";
-        cout << "\n | (3) Listar multas pendentes                                    |";
-        cout << "\n | (0) SAIR                                                       |";
-        cout << "\n #----------------------------------------------------------------#";
-        cout << "\nQual a sua opcao: ";
+        cout << "\n #------------------------------------------------------------#";
+        cout << "\n | (1) List Books Requested by a reader                       |";
+        cout << "\n | (2) List Books Requested by all readers                    |";
+        cout << "\n | (3) List Pending Fines                                     |";
+        cout << "\n | (0) EXIT                                                   |";
+        cout << "\n #------------------------------------------------------------#";
+        cout << "\nWhat is your option: ";
         cin >> option;
 
-        // Uteis::clearScreen();
+        // Utils::clearScreen();
 
         switch (option)
         {
         case 1:
-            g_Bib->Listagem_Emprestimo_leitor();
+            g_Bib->ListLoansByReader();
             break;
         case 2:
-            g_Bib->ListarEmprestimos();
+            g_Bib->ListLoans();
             break;
         case 3:
-            g_Bib->Listagem_Multas_Pendentes();
+            g_Bib->ListPendingFines();
             break;
         }
     } while (option != 0);
 }
 
-void MenuAvancado()
+void AdvancedMenu()
 {
     int option;
     do
     {
-        Uteis::clearScreen();
+        Utils::clearScreen();
 
-        cout << "\n #----------------------------------------------------------------#";
-        cout << "\n | (1) Gravar num dado ficheiro (introduzido pelo utilizador)     |";
-        cout << "\n | (2) Ler de um ficheiro                                         |";
-        cout << "\n | (3) Relátorio de otimização                                    |";
-        cout << "\n | (0) SAIR                                                       |";
-        cout << "\n #----------------------------------------------------------------#";
-        cout << "\nQual a sua opcao: ";
+        cout << "\n #------------------------------------------------------------#";
+        cout << "\n | (1) Save to a given file (entered by the user)             |";
+        cout << "\n | (2) Read from a file                                       |";
+        cout << "\n | (3) Optimization report                                    |";
+        cout << "\n | (0) EXIT                                                   |";
+        cout << "\n #------------------------------------------------------------#";
+        cout << "\nWhat is your option: ";
         cin >> option;
 
-        Uteis::clearScreen();
+        Utils::clearScreen();
 
         switch (option)
         {

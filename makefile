@@ -2,7 +2,7 @@
 CXX = g++
 CXXFLAGS = -Wall -g
 TARGET = main
-SRC = src/Biblioteca.cpp src/Geral.cpp src/LeitorComum.cpp src/Jornal.cpp src/Revista.cpp src/LivroCientifico.cpp src/LivroEducativo.cpp src/LivroFiccao.cpp src/Pessoa.cpp src/Estudante.cpp src/Senior.cpp src/menu.cpp src/Professor.cpp src/Uteis.cpp src/Data.cpp src/Emprestimo.cpp src/Multa.cpp main.cpp
+SRC = src/Library.cpp src/General.cpp src/CommonReader.cpp src/Newspaper.cpp src/Magazine.cpp src/ScientificBook.cpp src/EducationalBook.cpp src/FictionBook.cpp src/Person.cpp src/Student.cpp src/Senior.cpp src/menu.cpp src/Teacher.cpp src/Utils.cpp src/Date.cpp src/Loan.cpp src/Fine.cpp main.cpp
 OBJ = $(SRC:.cpp=.o)  # Lista de arquivos objeto
 
 # Regra principal

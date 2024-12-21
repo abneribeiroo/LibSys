@@ -1,14 +1,14 @@
 #ifndef MENUS_H
 #define MENUS_H
 
-#include "Biblioteca.h"
+#include "Library.h"
 
+void BooksMenu();
+void ListBooksMenu();
+void RequestersMenu();
+void ListRequestersMenu();
+void RequestsMenu();
+void ListRequestsMenu();
+void AdvancedMenu();
 
-void MenuLivros();
-void MenuListarLivros();
-void MenuRequisitantes();
-void MenuListarRequisitantes();
-void MenuRequisicoes();
-void MenuListarRequisicoes();
-void MenuAvancado();
-#endif // MENUS_HPPq
+#endif // MENUS_H

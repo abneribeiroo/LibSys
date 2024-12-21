@@ -1,0 +1,10 @@
+5;Newspaper;Folha de São Paulo;Editorial Team;2023/0/0;15/05/2023
+10;Newspaper;The New York Times;NYT Editorial;2023/0/0;16/05/2023
+1;ScientificBook;A Brief History of Time;Stephen Hawking;1988/0/0;Physics
+6;ScientificBook;The Selfish Gene;Richard Dawkins;1976/0/0;Biology
+3;EducationalBook;Fundamental Mathematics;Maria Silva;2020/0/0;High School
+8;EducationalBook;History of Brazil;João Santos;2018/0/0;Elementary School
+2;FictionBook;1984;George Orwell;1949/0/0;Dystopia
+7;FictionBook;One Hundred Years of Solitude;Gabriel García Márquez;1967/0/0;Magic Realism
+4;Magazine;National Geographic;Various Authors;2023/0/0;789
+9;Magazine;Superinteressante;Editora Abril;2023/0/0;432

@@ -1,11 +1,5 @@
 #include "../include/Senior.h"
 
-Senior::Senior()
-{
-    //ctor
-}
+Senior::Senior() {}
 
-Senior::~Senior()
-{
-    //dtor
-}
+Senior::~Senior() {}
