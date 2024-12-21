@@ -2,9 +2,10 @@
 
 <div align="center">
 
-  <div>
-    <img width="600px" src="/demo/img/hero.png">
-  </div>
+   <video width="600" controls>
+    <source src="video/demoLib.mp4" type="video/mp4">
+    
+  </video>
 
 </div>
 
