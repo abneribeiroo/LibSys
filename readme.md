@@ -24,7 +24,6 @@ Make sure you have the following installed:
 
 - **C++ Compiler**: Ensure that your system has a C++ compiler installed.
 - **Makefile**: You may need a `Makefile` to build the project.
-- **Libraries**: Ensure you have the required libraries for the project (refer to the included `Library.h`, `General.h`, and other header files for dependencies).
 
 ### Steps
 
