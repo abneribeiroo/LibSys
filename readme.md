@@ -1,90 +1,117 @@
-incluindo instruções sobre como instalar o `make` no Windows.
+# Library System - README
 
-# Sistema de Gestão da Biblioteca
+<div align="center">
 
-Este projeto é um sistema de gestão de biblioteca, escrito em C++. O `Makefile` fornecido facilita a compilação e execução do projeto.
+  <div>
+    <img width="600px" src="/demo/img/hero.png">
+  </div>
 
-## Requisitos
+</div>
 
-- `g++` (compilador C++)
-- `make` (ferramenta de automação de compilação)
+## Features
 
-## Instruções de Uso
+- 📚 **Book Management**: Add, remove, edit, and list books across various categories.
+- 👥 **Reader Management**: Manage and track readers, their overdue books, and fines.
+- 💳 **Loan Management**: Handle book reservations.
 
-### Compilando o Projeto
+## Motivation
 
-Para compilar o projeto, você pode usar o seguinte comando no terminal:
+This system was built to simplify the management of a library with functionalities for managing books, readers, and loans. The goal is to provide an efficient, easy-to-use, and customizable platform for libraries to handle day-to-day operations.
+
+## Installation
+
+### Prerequisites
+
+Make sure you have the following installed:
+
+- **C++ Compiler**: Ensure that your system has a C++ compiler installed.
+- **Makefile**: You may need a `Makefile` to build the project.
+- **Libraries**: Ensure you have the required libraries for the project (refer to the included `Library.h`, `General.h`, and other header files for dependencies).
+
+### Steps
+
+1. Clone the repository to your local machine:
 
 ```bash
-make
+git clone https://github.com/mightymoud/library-system.git
+cd library-system
 ```
 
-Isso irá compilar todos os arquivos fonte e gerar o executável `main`.
-
-### Executando o Programa
-
-Após a compilação, você pode executar o programa com o comando:
+2. Run the application:
 
 ```bash
 make run
 ```
 
-Isso irá rodar o executável `main` e você verá a saída do programa no terminal.
 
-### Limpando os Arquivos Gerados
+## Usage
 
-Para remover os arquivos objeto e o executável gerados durante o processo de compilação, utilize:
+The Library System is a text-based application where you can manage books, readers, and loans. The main menu gives you access to the following options:
 
-```bash
-make clean
-```
+### Main Menu
 
-### Observações
+1. **Manage Books**: Add, remove, edit, and list books.
+2. **Manage Readers**: Add, edit, remove, and list readers.
+3. **Manage Loans**: Handle book requests, returns, extensions, and fines.
+4. **Advanced Options**: Save and load data, generate reports, and more.
+5. **Exit**: Exit the program, with automatic saving of data.
 
-- Certifique-se de que todos os arquivos fonte estão na estrutura de diretórios correta, especialmente os arquivos dentro da pasta `src`.
-- O `Makefile` foi projetado para compilar e executar o programa sem mostrar os comandos de compilação no terminal, exibindo apenas a saída do programa.
+### Manage Books
 
-## Instalando o `make` no Windows
+You can perform various actions such as:
 
-Se você estiver usando Windows e não tiver o `make` instalado, siga as instruções abaixo:
+- **Add Books**: Register new books in the library.
+- **Remove Books**: Delete books by their ID.
+- **Edit Books**: Update book information using the ID.
+- **List Books**: View books by category or list all books.
 
-### Opção 1: Instalar o `make` com o MSYS2
+### Manage Readers
 
-1. **Baixe o instalador do MSYS2**:
+- **Add Readers**: Register new readers into the system.
+- **Edit Readers**: Modify existing reader details.
+- **Remove Readers**: Delete a reader from the system.
+- **List Readers**: View readers' details or search by category.
 
-   - Acesse o [site oficial do MSYS2](https://www.msys2.org/) e siga as instruções para baixar e instalar.
+### Manage Loans
 
-2. **Abra o terminal MSYS2**:
+- **Request Book**: Book reservations and borrowing management.
+- **Return Book**: Process book returns and calculate fines if any.
+- **Extend Loans**: Extend the loan period for students and teachers.
+- **Pay Fine**: Handle fine payments for overdue books.
 
-   - Após a instalação, abra o terminal MSYS2.
+### Advanced Options
 
-3. **Atualize o sistema**:
+- **Save Data**: Save the current state of books, readers, and loans to a file.
+- **Load Data**: Load data from a previous session to continue from where you left off.
+- **Generate Reports**: Get a report on overdue books, fines, and more.
 
-   - Execute os seguintes comandos para atualizar os pacotes:
-     ```bash
-     pacman -Syu
-     ```
+## Inspiration
 
-4. **Instale o `make`**:
+- https://www.librarymanagement.com/
+- https://github.com/library-system
+- https://fly.io/
 
-   - Depois de atualizar, instale o `make` com o seguinte comando:
-     ```bash
-     pacman -S make
-     ```
+## Vision
 
-5. **Instale o `g++`** (se ainda não estiver instalado):
-   ```bash
-   pacman -S mingw-w64-x86_64-gcc
-   ```
+The Library System aims to:
 
-TODO
+- Simplify the management of books, readers, and loans for libraries.
+- Provide a straightforward and extensible platform for library management.
+- Offer robust and production-ready deployment for small to medium libraries.
 
-- [x] - Atribuir o ID a toos os tipos de Leitores
-- [x] - Colocar o ID no ficheiro dos arquivos
-- [ ] - Criar o arquivo para peessos e requisições
-- [ ] - E fazer as funções para criar requisições e gerir requisições
-- [ ] - Implementar um relatório que mostre os empréstimos categorizados por tipo de
-    livro (livros ficcionais, científicos, etc.) e o tipo de leitor que mais os requisita.
-- [ ] - Histórico de Empréstimos de Leitores: Cada tipo de leitor terá seu próprio histórico de empréstimos, e o sistema deve
-    exibir o histórico de empréstimos de cada leitor, categorizando os livros por tipo.
-- [ ] - Certificar que todas as funções e ficheiros estão libertanto a memória de forma correta
+## Roadmap
+
+There are more features to come, including:
+
+- ✅ Support for advanced filtering and searching of books and readers.
+- ✅ Multi-category and multi-genre book handling.
+- 🔧 Performance optimizations to scale for larger libraries.
+- 🔒 Better security and data privacy with improved encryption.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## How to Contribute
+
+If you want to contribute to the project, feel free to fork it and submit a pull request. Please ensure that your contributions follow the project's coding standards and provide tests where applicable.

@@ -161,7 +161,6 @@ bool Library::LoadFile_Books(const string &filename)
     return true;
 }
 
-
 bool Library::AddBook(General *book)
 {
     if (book == nullptr)

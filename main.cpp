@@ -7,7 +7,7 @@ Library *g_Bib = nullptr;
 
 int main()
 {
-    cout << "\t\tLibrary-ESTGV!\n";
+    cout << "\n\t\tWelcome to the Library System!\n";
 
     g_Bib = new Library();
     g_Bib->LoadFile_Books("./database/books.txt");
