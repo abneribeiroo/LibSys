@@ -2,7 +2,10 @@
 
 <div align="center">
 
-   ![Demo Video](demo/video/demoLib.mp4)
+   <video width="600" controls>
+    <source src="demo/video/demoLib.mp4" type="video/mp4">
+
+  </video>
 
 </div>
 
