@@ -3,8 +3,8 @@
 <div align="center">
 
    <video width="600" controls>
-    <source src="video/demoLib.mp4" type="video/mp4">
-    
+    <source src="demo/video/demoLib.mp4" type="video/mp4">
+
   </video>
 
 </div>
