@@ -14,7 +14,8 @@
 
 ## Motivation
 
-This system was built to simplify the management of a library with functionalities for managing books, readers, and loans. The goal is to provide an efficient, easy-to-use, and customizable platform for libraries to handle day-to-day operations.
+This project arose as a personal challenge to apply certain concepts such as polymorphism, classes, handling files, and other concepts.
+This system was built to simplify the management of a library with functionalities for managing books, readers, and loans.
 
 ## Installation
 
